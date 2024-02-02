@@ -17,6 +17,7 @@ export default function Home() {
           name="fc:frame:post_url"
           content="https://mintnft.vercel.app/api/hello"
         />
+        <meta name="fc:frame:button:1" content="CLICK ME" />
         <link rel="icon" href="https://mintnft-ruddy.vercel.app/favicon.ico" />
       </Head>
       <div>This is a Farcaster frame. What are you doing here?</div>
