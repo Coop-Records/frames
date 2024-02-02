@@ -13,7 +13,10 @@ export default function Home() {
           content="https://mintnft-ruddy.vercel.app/red.png"
         />
         <meta name="og:image" content="op.png" />
-        <meta name="fc:frame:post_url" content="https://mintnft.vercel.app/" />
+        <meta
+          name="fc:frame:post_url"
+          content="https://mintnft.vercel.app/api/hello"
+        />
         <link rel="icon" href="https://mintnft-ruddy.vercel.app/favicon.ico" />
       </Head>
       <div>This is a Farcaster frame. What are you doing here?</div>
