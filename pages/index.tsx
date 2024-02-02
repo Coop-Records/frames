@@ -15,7 +15,7 @@ export default function Home() {
         <meta name="og:image" content="op.png" />
         <meta
           name="fc:frame:post_url"
-          content="https://mintnft.vercel.app/api/hello"
+          content="https://mintnft-ruddy.vercel.app//api/hello"
         />
         <meta name="fc:frame:button:1" content="CLICK ME" />
         <link rel="icon" href="https://mintnft-ruddy.vercel.app/favicon.ico" />
