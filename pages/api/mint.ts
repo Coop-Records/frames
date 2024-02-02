@@ -18,7 +18,7 @@ const songContractAddress = "0x482f34d9137f572397973a6dcf5266a697471824";
 
 const endpointLocal =
   "https://dcd5-2601-645-8a00-9db0-4132-783f-3890-61af.ngrok-free.app";
-const endpointProd = "https://mintnft-ruddy.vercel.app";
+const endpointProd = "https://crmcollect.vercel.app";
 
 // TODO: Implement redirect
 // if (req.body.untrustedData.buttonIndex === 2) {
@@ -78,7 +78,7 @@ function successScreen(res: NextApiResponse) {
   <meta name="description" content="Coop Recs Frame" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="fc:frame" content="vNext" />
-  <meta name="fc:frame:image" content=${endpointLocal}/success.png />
+  <meta name="fc:frame:image" content=${endpointProd}/success.png />
   <meta name="og:image" content="op.png" />
 `;
   res.setHeader("Content-Type", "text/html");
@@ -91,7 +91,7 @@ function alreadyMintedScreen(res: NextApiResponse) {
   <meta name="description" content="Coop Recs Frame" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="fc:frame" content="vNext" />
-  <meta name="fc:frame:image" content=${endpointLocal}/alreadycollected.png />
+  <meta name="fc:frame:image" content=${endpointProd}/alreadycollected.png />
   <meta name="og:image" content="op.png" />
 `;
   res.setHeader("Content-Type", "text/html");
@@ -104,7 +104,7 @@ function soldoutScreen(res: NextApiResponse) {
   <meta name="description" content="Coop Recs Frame" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="fc:frame" content="vNext" />
-  <meta name="fc:frame:image" content=${endpointLocal}/soldout.png />
+  <meta name="fc:frame:image" content=${endpointProd}/soldout.png />
   <meta name="og:image" content="op.png" />
 `;
   res.setHeader("Content-Type", "text/html");
