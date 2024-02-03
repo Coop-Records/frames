@@ -12,7 +12,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="fc:frame" content="vNext" />
         <meta name="fc:frame:image" content={`${endpointProd}/mint.png`} />
-        <meta name="og:image" content="op.png" />
+        <meta name="og:image" content="mint.png" />
         <meta name="fc:frame:post_url" content={`${endpointProd}/api/mint`} />
         <meta name="fc:frame:button:1" content="Collect" />
         {/* <meta name="fc:frame:button:2" content="Listen on Sound" /> */}
