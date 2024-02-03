@@ -18,7 +18,7 @@ const songContractAddress = "0x482f34d9137f572397973a6dcf5266a697471824";
 
 const endpointLocal =
   "https://dcd5-2601-645-8a00-9db0-4132-783f-3890-61af.ngrok-free.app";
-const endpointProd = "https://crmcollect.vercel.app";
+const endpointProd = "https://frames.cooprecords.xyz";
 
 // TODO: Implement redirect
 // if (req.body.untrustedData.buttonIndex === 2) {

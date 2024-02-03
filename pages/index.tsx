@@ -3,7 +3,7 @@ import Head from "next/head";
 export default function Home() {
   const endpointLocal =
     "https://dcd5-2601-645-8a00-9db0-4132-783f-3890-61af.ngrok-free.app";
-  const endpointProd = "https://crmcollect.vercel.app";
+  const endpointProd = "https://frames.cooprecords.xyz";
   return (
     <>
       <Head>
