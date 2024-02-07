@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import {
+  BASEpublicServerClient,
+  BASEwalletClient,
   DeployerAccount,
-  OPpublicServerClient,
-  OPwalletClient,
 } from "@/utils/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import SuperMinter from "@/abis/superminter.json";
@@ -14,7 +14,7 @@ type Data = {
 };
 
 const superMinterContractAddress = "0x000000000001A36777f9930aAEFf623771b13e70";
-const songContractAddress = "0x482f34d9137f572397973a6dcf5266a697471824";
+const songContractAddress = "0x82F244bB4656ce7c5Ad47C336a6dd5b28Cef6379";
 
 const endpointLocal =
   "https://dcd5-2601-645-8a00-9db0-4132-783f-3890-61af.ngrok-free.app";
@@ -75,12 +75,12 @@ export default async function handler(
 
 function successScreen(res: NextApiResponse) {
   const htmlContent = `
-  <meta name="description" content="Coop Recs Frame" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="fc:frame" content="vNext" />
-  <meta name="fc:frame:image" content=${endpointProd}/success.png />
-  <meta name="og:image" content="op.png" />
-`;
+    <meta name="description" content="Coop Recs Frame" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="fc:frame" content="vNext" />
+    <meta name="fc:frame:image" content=${endpointProd}/33belowJumper/success.png />
+    <meta name="og:image" content="op.png" />
+  `;
   res.setHeader("Content-Type", "text/html");
 
   res.status(200).send(htmlContent);
@@ -88,12 +88,12 @@ function successScreen(res: NextApiResponse) {
 
 function alreadyMintedScreen(res: NextApiResponse) {
   const htmlContent = `
-  <meta name="description" content="Coop Recs Frame" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="fc:frame" content="vNext" />
-  <meta name="fc:frame:image" content=${endpointProd}/alreadycollected.png />
-  <meta name="og:image" content="op.png" />
-`;
+    <meta name="description" content="Coop Recs Frame" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="fc:frame" content="vNext" />
+    <meta name="fc:frame:image" content=${endpointProd}/33belowJumper/alreadycollected.png />
+    <meta name="og:image" content="op.png" />
+  `;
   res.setHeader("Content-Type", "text/html");
 
   res.status(200).send(htmlContent);
@@ -101,12 +101,12 @@ function alreadyMintedScreen(res: NextApiResponse) {
 
 function soldoutScreen(res: NextApiResponse) {
   const htmlContent = `
-  <meta name="description" content="Coop Recs Frame" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="fc:frame" content="vNext" />
-  <meta name="fc:frame:image" content=${endpointProd}/soldout.png />
-  <meta name="og:image" content="op.png" />
-`;
+    <meta name="description" content="Coop Recs Frame" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="fc:frame" content="vNext" />
+    <meta name="fc:frame:image" content=${endpointProd}/33belowJumper/soldout.png />
+    <meta name="og:image" content="op.png" />
+  `;
   res.setHeader("Content-Type", "text/html");
 
   res.status(200).send(htmlContent);
@@ -117,7 +117,7 @@ async function isMintingSoldOut(
 ): Promise<boolean> {
   try {
     console.log(mintToAddress);
-    const { request, result } = await OPpublicServerClient.simulateContract({
+    const { request, result } = await BASEpublicServerClient.simulateContract({
       address: superMinterContractAddress,
       abi: SuperMinter,
       functionName: "mintTo",
@@ -155,7 +155,7 @@ async function didUserAlreadyMint(
 ): Promise<boolean> {
   // cutoff is id 1461
   const cutoff = 1464;
-  const owned = (await OPpublicServerClient.readContract({
+  const owned = (await BASEpublicServerClient.readContract({
     address: songContractAddress,
     abi: Song,
     functionName: "tokensOfOwner",
@@ -171,7 +171,7 @@ async function didUserAlreadyMint(
 async function mintSong(mintToAddress: `0x${string}`) {
   const abi = SuperMinter;
 
-  const { request, result } = await OPpublicServerClient.simulateContract({
+  const { request, result } = await BASEpublicServerClient.simulateContract({
     address: superMinterContractAddress,
     abi: SuperMinter,
     functionName: "mintTo",
@@ -199,7 +199,7 @@ async function mintSong(mintToAddress: `0x${string}`) {
     value: parseEther("0.000777"),
   });
 
-  const hash = await OPwalletClient.writeContract(request);
+  const hash = await BASEwalletClient.writeContract(request);
 
   return {
     hash,
