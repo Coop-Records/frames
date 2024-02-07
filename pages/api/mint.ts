@@ -60,9 +60,10 @@ export default async function handler(
     }
 
     // TODO: Disabled.
-    // if (await isMintingSoldOut(address)) {
-    //   soldoutScreen(res);
-    // } else if (await didUserAlreadyMint(address)) {
+    if (await isMintingSoldOut(address)) {
+      soldoutScreen(res);
+    } 
+    // else if (await didUserAlreadyMint(address)) {
     //   alreadyMintedScreen(res);
     // } else {
     //   await mintSong(address);
