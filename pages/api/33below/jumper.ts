@@ -59,14 +59,14 @@ export default async function handler(
       throw new Error();
     }
 
-    if (await isMintingSoldOut(address)) {
-      soldoutScreen(res);
-    } else if (await didUserAlreadyMint(address)) {
-      alreadyMintedScreen(res);
-    } else {
-      await mintSong(address);
-      successScreen(res);
-    }
+    // if (await isMintingSoldOut(address)) {
+    soldoutScreen(res);
+    // } else if (await didUserAlreadyMint(address)) {
+    //   alreadyMintedScreen(res);
+    // } else {
+    //   await mintSong(address);
+    //   successScreen(res);
+    // }
   } catch (error) {
     console.error("Request failed:", error);
     res.status(500).json({ error: "Internal Server Error" });
