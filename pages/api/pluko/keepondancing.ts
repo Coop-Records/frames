@@ -70,8 +70,7 @@ export default async function handler(
       } else if (await didUserAlreadyMint(address)) {
         alreadyMintedScreen(res);
       } else {
-        // TODO: UNDO THIS
-        // await mintSong(address);
+        await mintSong(address);
         successScreen(res);
       }
     }
