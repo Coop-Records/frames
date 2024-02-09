@@ -113,9 +113,9 @@ function followScreen(res: NextApiResponse) {
           <meta name="fc:frame" content="vNext" />
           <meta name="fc:frame:image" content=${endpointProd}/plukokeepondancing/follow.png />
           <meta name="fc:frame:button:1" content="Retry" />
-          <meta name="fc:frame:button:2" content="Follow /soundxyz" />
+          <meta name="fc:frame:button:2" content="Follow /coop-recs" />
           <meta name="fc:frame:button:2:action" content="post_redirect" />
-          <meta name="fc:frame:button:3" content="Follow /coop-recs" />
+          <meta name="fc:frame:button:3" content="Follow /soundxyz" />
           <meta name="fc:frame:button:3:action" content="post_redirect" />
           <meta name="og:image" content="op.png" />
         `;
