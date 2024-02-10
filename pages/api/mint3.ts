@@ -15,8 +15,8 @@ type Data = {
 
 const superMinterContractAddress = "0x000000000001A36777f9930aAEFf623771b13e70";
 const songContractAddress1 = "0x8C6385f79200Afed5946Abb1Fa6dEC62cf656153";
-const songContractAddress2 = "0x7Cf1ca780197B0607D4713b090b9b810FC02EEaE";
-const songContractAddress3 = "0x0043a2C44336f4Af576df0B16bB0799E08C78088";
+const songContractAddress2 = "0x0043a2C44336f4Af576df0B16bB0799E08C78088";
+const songContractAddress3 = "0x7Cf1ca780197B0607D4713b090b9b810FC02EEaE";
 
 const endpointLocal =
   "https://e623-2601-645-8a00-9db0-b5aa-f69a-f69-7ac2.ngrok-free.app";
@@ -55,6 +55,7 @@ export default async function handler(
 
     const userFid = data.action.interactor.fid as number;
 
+    console.log("HERE1");
     if (req.body.untrustedData.buttonIndex === 4) {
       res.redirect(302, "https://warpcast.com/~/channel/coop-recs");
       res.statusCode = 302;
@@ -216,6 +217,7 @@ async function isMintingSoldOut(
       value: parseEther("0.000777"),
     });
   } catch (e) {
+    console.log("SHOULD BE SOLD OUT");
     // console.log(e);
     return true;
   }

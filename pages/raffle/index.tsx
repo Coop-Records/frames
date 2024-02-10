@@ -18,8 +18,8 @@ export default function Home() {
         <meta name="og:image" content={`${endpointProd}/mint3/mint.png`} />
         <meta name="fc:frame:post_url" content={`${endpointProd}/api/mint3`} />
         <meta name="fc:frame:button:1" content="LACE" />
-        <meta name="fc:frame:button:2" content="GLOW" />
-        <meta name="fc:frame:button:3" content="Naked Love" />
+        <meta name="fc:frame:button:2" content="Naked Love" />
+        <meta name="fc:frame:button:3" content="Glow" />
       </Head>
       <div>This is a Farcaster frame. What are you doing here?</div>
     </>
