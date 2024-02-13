@@ -115,7 +115,7 @@ function followScreen(res: NextApiResponse) {
             <meta name="fc:frame:button:1" content="Retry" />
             <meta name="fc:frame:button:2" content="Follow /coop-recs" />
             <meta name="fc:frame:button:2:action" content="post_redirect" />
-            <meta name="fc:frame:button:3" content="Follow /soundxyz" />
+            <meta name="fc:frame:button:3" content="Follow @cooprecs" />
             <meta name="fc:frame:button:3:action" content="post_redirect" />
             <meta name="og:image" content="op.png" />
           `;
@@ -163,17 +163,17 @@ async function isFollowingCoop(fid: number): Promise<boolean> {
 
     const data = await response.json();
 
-    const fids = data.users.map((user: { fid: any }) => user.fid);
+    const fids = data.result.users.map((user: { fid: any }) => user.fid);
 
     if (fids.includes(fid)) {
       console.log(fid, true);
       return true;
     }
 
-    if (data?.next?.cursor === undefined) {
+    if (data?.result?.next?.cursor === undefined) {
       break;
     } else {
-      cursor = data.next.cursor;
+      cursor = data.result.next.cursor;
     }
   }
   console.log(fid, false);

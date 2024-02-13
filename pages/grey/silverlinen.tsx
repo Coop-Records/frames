@@ -4,6 +4,7 @@ export default function Home() {
   const endpointLocal =
     "https://e623-2601-645-8a00-9db0-b5aa-f69a-f69-7ac2.ngrok-free.app";
   const endpointProd = "https://frames.cooprecords.xyz";
+  const endpointProd = endpointLocal; // "https://frames.cooprecords.xyz";
   return (
     <>
       <Head>
@@ -20,7 +21,7 @@ export default function Home() {
           name="fc:frame:post_url"
           content={`${endpointProd}/api/grey/silverlinen`}
         />
-        {/* <meta name="fc:frame:button:1" content="Collect" /> */}
+        <meta name="fc:frame:button:1" content="Collect" />
       </Head>
       <div>This is a Farcaster frame. What are you doing here?</div>
     </>
