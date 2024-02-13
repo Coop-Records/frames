@@ -138,9 +138,7 @@ function soldoutScreen(res: NextApiResponse) {
 }
 
 async function isFollowingCoopChannelAndAccount(fid: number): Promise<boolean> {
-  return (
-    (await isFollowingChannel(fid, "coop-recs")) && (await isFollowingCoop(fid))
-  );
+  return await isFollowingChannel(fid, "coop-recs");
 }
 
 async function isFollowingCoop(fid: number): Promise<boolean> {
