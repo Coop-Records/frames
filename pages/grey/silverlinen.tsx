@@ -20,7 +20,7 @@ export default function Home() {
           name="fc:frame:post_url"
           content={`${endpointProd}/api/grey/silverlinen`}
         />
-        <meta name="fc:frame:button:1" content="Collect" />
+        {/* <meta name="fc:frame:button:1" content="Collect" /> */}
       </Head>
       <div>This is a Farcaster frame. What are you doing here?</div>
     </>

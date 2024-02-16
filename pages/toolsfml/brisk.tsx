@@ -2,8 +2,8 @@ import Head from "next/head";
 
 export default function Home() {
   const endpointLocal =
-    "https://e623-2601-645-8a00-9db0-b5aa-f69a-f69-7ac2.ngrok-free.app";
-  const endpointProd = "https://frames.cooprecords.xyz";
+    "https://d964-2601-645-8a00-9db0-510b-8774-e7cd-76bd.ngrok-free.app";
+  const endpointProd = endpointLocal; // "https://frames.cooprecords.xyz";
   return (
     <>
       <Head>
