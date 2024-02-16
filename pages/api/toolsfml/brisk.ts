@@ -115,7 +115,7 @@ function followScreen(res: NextApiResponse) {
               <meta name="fc:frame:button:1" content="Retry" />
               <meta name="fc:frame:button:2" content="Follow /coop-recs" />
               <meta name="fc:frame:button:2:action" content="post_redirect" />
-              <meta name="fc:frame:button:3" content="Follow @cooprecs" />
+              <meta name="fc:frame:button:3" content="Follow /toolsfml" />
               <meta name="fc:frame:button:3:action" content="post_redirect" />
               <meta name="og:image" content="op.png" />
             `;
@@ -138,10 +138,7 @@ function soldoutScreen(res: NextApiResponse) {
 }
 
 async function isFollowingCoopChannelAndAccount(fid: number): Promise<boolean> {
-  return (
-    (await isFollowingChannel(fid, "coop-recs")) &&
-    (await isFollowingChannel(fid, "toolsfml"))
-  );
+  return await isFollowingChannel(fid, "toolsfml");
 }
 
 async function isFollowingCoop(fid: number): Promise<boolean> {
