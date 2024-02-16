@@ -263,7 +263,7 @@ async function didUserAlreadyMint(
   mintToAddress: `0x${string}`
 ): Promise<boolean> {
   // cutoff is id 1461
-  const cutoff = 1464;
+  const cutoff = 0;
   const owned = (await BASEpublicServerClient.readContract({
     address: songContractAddress,
     abi: Song,
