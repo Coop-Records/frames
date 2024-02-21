@@ -160,7 +160,7 @@ async function isFollowingHume(fid: number): Promise<boolean> {
       return true;
     }
 
-    if (data?.result?.next?.cursor === undefined) {
+    if (!data?.result?.next?.cursor) {
       break;
     } else {
       cursor = data.result.next.cursor;
