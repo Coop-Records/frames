@@ -17,7 +17,7 @@ const superMinterContractAddress = "0x000000000001A36777f9930aAEFf623771b13e70";
 const songContractAddress = "0xF9E4ba1859815357fa4D0a86746c5502E3002bf3";
 
 const endpointLocal = "https://b456-104-59-124-88.ngrok-free.app";
-const endpointProd = endpointLocal; // = "https://frames.cooprecords.xyz";
+const endpointProd = "https://frames.cooprecords.xyz";
 
 const neynarApiKey: string = process.env.NEYNAR_ONCHAIN_KIT_API_KEY as string;
 
