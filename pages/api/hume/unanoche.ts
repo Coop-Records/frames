@@ -134,13 +134,10 @@ async function isFollowingCoopChannelAndAccount(fid: number): Promise<boolean> {
 }
 
 async function isFollowingHume(fid: number): Promise<boolean> {
-  let cursor = "";
-
-  while (true) {
-    const response = await fetch(
-      `https://api.neynar.com/v1/farcaster/followers?fid=346766&viewerFid=3&limit=150${
-        cursor !== "" ? `&cursor=${cursor}` : ""
-      }`,
+  `https://api.neynar.com/v1/farcaster/user`;
+  const response = await (
+    await fetch(
+      `https://api.neynar.com/v1/farcaster/user?fid=346766&viewerFid=${fid}`,
       {
         method: "GET",
         headers: {
@@ -149,26 +146,10 @@ async function isFollowingHume(fid: number): Promise<boolean> {
           "Content-Type": "application/json",
         },
       }
-    );
+    )
+  ).json();
 
-    const data = await response.json();
-
-    const fids = data.result.users.map((user: { fid: any }) => user.fid);
-
-    if (fids.includes(fid)) {
-      console.log(fid, true);
-      return true;
-    }
-
-    if (!data?.result?.next?.cursor) {
-      break;
-    } else {
-      cursor = data.result.next.cursor;
-    }
-  }
-  console.log(fid, false);
-
-  return false;
+  return response?.result?.user?.viewerContext?.following;
 }
 
 async function isFollowingChannel(
