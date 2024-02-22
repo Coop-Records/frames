@@ -16,8 +16,8 @@ type Data = {
 const superMinterContractAddress = "0x000000000001A36777f9930aAEFf623771b13e70";
 const songContractAddress = "0xF9E4ba1859815357fa4D0a86746c5502E3002bf3";
 
-const endpointLocal = "https://b456-104-59-124-88.ngrok-free.app";
-const endpointProd = "https://frames.cooprecords.xyz";
+const endpointLocal = "https://1e2d-73-70-34-127.ngrok-free.app";
+const endpointProd = endpointLocal; //= "https://frames.cooprecords.xyz";
 
 const neynarApiKey: string = process.env.NEYNAR_ONCHAIN_KIT_API_KEY as string;
 
@@ -60,10 +60,15 @@ export default async function handler(
       if (!(await isFollowingCoopChannelAndAccount(userFid))) {
         followScreen(res);
       } else if (await isMintingSoldOut(address)) {
+        console.log("HERE1");
         soldoutScreen(res);
       } else if (await didUserAlreadyMint(address)) {
+        console.log("HERE2");
+
         alreadyMintedScreen(res);
       } else {
+        console.log("HERE3");
+
         await mintSong(address);
         successScreen(res);
       }
