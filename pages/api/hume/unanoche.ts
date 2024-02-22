@@ -97,7 +97,7 @@ function alreadyMintedScreen(res: NextApiResponse) {
               <meta name="description" content="Coop Recs Frame" />
               <meta name="viewport" content="width=device-width, initial-scale=1" />
               <meta name="fc:frame" content="vNext" />
-              <meta name="fc:frame:image" content=${endpointProd}/unanoche/alreadycollected.jpg />
+              <meta name="fc:frame:image" content=${endpointProd}/unanoche/alreadyconnected.jpg />
               <meta name="og:image" content="op.png" />
             `;
   res.setHeader("Content-Type", "text/html");
