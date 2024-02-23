@@ -14,10 +14,10 @@ type Data = {
 };
 
 const superMinterContractAddress = "0x000000000001A36777f9930aAEFf623771b13e70";
-const songContractAddress = "0xF9E4ba1859815357fa4D0a86746c5502E3002bf3";
+const songContractAddress = "0x3D1274Ef21588BbD79105F27cBb8F433e9768a74";
 
 const endpointLocal = "https://1e2d-73-70-34-127.ngrok-free.app";
-const endpointProd = endpointLocal; //= "https://frames.cooprecords.xyz";
+const endpointProd = "https://frames.cooprecords.xyz";
 
 const neynarApiKey: string = process.env.NEYNAR_ONCHAIN_KIT_API_KEY as string;
 
@@ -81,39 +81,10 @@ export default async function handler(
 
 function successScreen(res: NextApiResponse) {
   const htmlContent = `
-              <meta name="description" content="Coop Recs Frame" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <meta name="fc:frame" content="vNext" />
-              <meta name="fc:frame:image" content=${endpointProd}/unanoche/success.jpg />
-              <meta name="og:image" content="op.png" />
-            `;
-  res.setHeader("Content-Type", "text/html");
-
-  res.status(200).send(htmlContent);
-}
-
-function alreadyMintedScreen(res: NextApiResponse) {
-  const htmlContent = `
-              <meta name="description" content="Coop Recs Frame" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <meta name="fc:frame" content="vNext" />
-              <meta name="fc:frame:image" content=${endpointProd}/unanoche/alreadyconnected.jpg />
-              <meta name="og:image" content="op.png" />
-            `;
-  res.setHeader("Content-Type", "text/html");
-
-  res.status(200).send(htmlContent);
-}
-
-function followScreen(res: NextApiResponse) {
-  const htmlContent = `
                 <meta name="description" content="Coop Recs Frame" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="fc:frame" content="vNext" />
-                <meta name="fc:frame:image" content=${endpointProd}/unanoche/follow.jpg />
-                <meta name="fc:frame:button:1" content="Retry" />
-                <meta name="fc:frame:button:2" content="Follow @hume" />
-                <meta name="fc:frame:button:2:action" content="post_redirect" />
+                <meta name="fc:frame:image" content=${endpointProd}/baker/success.jpg />
                 <meta name="og:image" content="op.png" />
               `;
   res.setHeader("Content-Type", "text/html");
@@ -121,28 +92,57 @@ function followScreen(res: NextApiResponse) {
   res.status(200).send(htmlContent);
 }
 
+function alreadyMintedScreen(res: NextApiResponse) {
+  const htmlContent = `
+                <meta name="description" content="Coop Recs Frame" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="fc:frame" content="vNext" />
+                <meta name="fc:frame:image" content=${endpointProd}/baker/alreadycollected.jpg />
+                <meta name="og:image" content="op.png" />
+              `;
+  res.setHeader("Content-Type", "text/html");
+
+  res.status(200).send(htmlContent);
+}
+
+function followScreen(res: NextApiResponse) {
+  const htmlContent = `
+                  <meta name="description" content="Coop Recs Frame" />
+                  <meta name="viewport" content="width=device-width, initial-scale=1" />
+                  <meta name="fc:frame" content="vNext" />
+                  <meta name="fc:frame:image" content=${endpointProd}/baker/follow.jpg />
+                  <meta name="fc:frame:button:1" content="Retry" />
+                  <meta name="fc:frame:button:2" content="Follow @hume" />
+                  <meta name="fc:frame:button:2:action" content="post_redirect" />
+                  <meta name="og:image" content="op.png" />
+                `;
+  res.setHeader("Content-Type", "text/html");
+
+  res.status(200).send(htmlContent);
+}
+
 function soldoutScreen(res: NextApiResponse) {
   const htmlContent = `
-              <meta name="description" content="Coop Recs Frame" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <meta name="fc:frame" content="vNext" />
-              <meta name="fc:frame:image" content=${endpointProd}/unanoche/soldout.jpg />
-              <meta name="og:image" content="op.png" />
-            `;
+                <meta name="description" content="Coop Recs Frame" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="fc:frame" content="vNext" />
+                <meta name="fc:frame:image" content=${endpointProd}/baker/soldout.jpg />
+                <meta name="og:image" content="op.png" />
+              `;
   res.setHeader("Content-Type", "text/html");
 
   res.status(200).send(htmlContent);
 }
 
 async function isFollowingCoopChannelAndAccount(fid: number): Promise<boolean> {
-  return await isFollowingHume(fid);
+  return (await isFollowingHume(fid)) && isFollowingChannel(fid, "coop-recs");
 }
 
 async function isFollowingHume(fid: number): Promise<boolean> {
   `https://api.neynar.com/v1/farcaster/user`;
   const response = await (
     await fetch(
-      `https://api.neynar.com/v1/farcaster/user?fid=346766&viewerFid=${fid}`,
+      `https://api.neynar.com/v1/farcaster/user?fid=363197&viewerFid=${fid}`,
       {
         method: "GET",
         headers: {
@@ -241,7 +241,7 @@ async function didUserAlreadyMint(
   mintToAddress: `0x${string}`
 ): Promise<boolean> {
   // cutoff is id 1461
-  const cutoff = 0;
+  const cutoff = 500;
   const owned = (await BASEpublicServerClient.readContract({
     address: songContractAddress,
     abi: Song,

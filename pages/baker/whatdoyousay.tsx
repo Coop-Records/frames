@@ -12,14 +12,14 @@ export default function Home() {
         <meta name="fc:frame" content="vNext" />
         <meta
           name="fc:frame:image"
-          content={`${endpointProd}/unanoche/mint.jpg`}
+          content={`${endpointProd}/baker/mint.jpg`}
         />
         <meta name="og:image" content="mint.jpg" />
         <meta
           name="fc:frame:post_url"
-          content={`${endpointProd}/api/hume/unanoche`}
+          content={`${endpointProd}/api/baker/whatdoyousay`}
         />
-        {/* <meta name="fc:frame:button:1" content="Collect" /> */}
+        <meta name="fc:frame:button:1" content="Collect" />
       </Head>
       <div>This is a Farcaster frame. What are you doing here?</div>
     </>
