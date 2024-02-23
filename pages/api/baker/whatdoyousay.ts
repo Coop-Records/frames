@@ -84,7 +84,7 @@ function successScreen(res: NextApiResponse) {
                 <meta name="description" content="Coop Recs Frame" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="fc:frame" content="vNext" />
-                <meta name="fc:frame:image" content=${endpointProd}/baker/success.jpg />
+                <meta name="fc:frame:image" content=${endpointProd}/baker/success.png />
                 <meta name="og:image" content="op.png" />
               `;
   res.setHeader("Content-Type", "text/html");
@@ -97,7 +97,7 @@ function alreadyMintedScreen(res: NextApiResponse) {
                 <meta name="description" content="Coop Recs Frame" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="fc:frame" content="vNext" />
-                <meta name="fc:frame:image" content=${endpointProd}/baker/alreadycollected.jpg />
+                <meta name="fc:frame:image" content=${endpointProd}/baker/alreadycollected.png />
                 <meta name="og:image" content="op.png" />
               `;
   res.setHeader("Content-Type", "text/html");
@@ -110,7 +110,7 @@ function followScreen(res: NextApiResponse) {
                   <meta name="description" content="Coop Recs Frame" />
                   <meta name="viewport" content="width=device-width, initial-scale=1" />
                   <meta name="fc:frame" content="vNext" />
-                  <meta name="fc:frame:image" content=${endpointProd}/baker/follow.jpg />
+                  <meta name="fc:frame:image" content=${endpointProd}/baker/follow.png />
                   <meta name="fc:frame:button:1" content="Retry" />
                   <meta name="fc:frame:button:2" content="Follow @hume" />
                   <meta name="fc:frame:button:2:action" content="post_redirect" />
@@ -126,7 +126,7 @@ function soldoutScreen(res: NextApiResponse) {
                 <meta name="description" content="Coop Recs Frame" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="fc:frame" content="vNext" />
-                <meta name="fc:frame:image" content=${endpointProd}/baker/soldout.jpg />
+                <meta name="fc:frame:image" content=${endpointProd}/baker/soldout.png />
                 <meta name="og:image" content="op.png" />
               `;
   res.setHeader("Content-Type", "text/html");

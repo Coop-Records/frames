@@ -12,9 +12,9 @@ export default function Home() {
         <meta name="fc:frame" content="vNext" />
         <meta
           name="fc:frame:image"
-          content={`${endpointProd}/baker/mint.jpg`}
+          content={`${endpointProd}/baker/mint.png`}
         />
-        <meta name="og:image" content="mint.jpg" />
+        <meta name="og:image" content="mint.png" />
         <meta
           name="fc:frame:post_url"
           content={`${endpointProd}/api/baker/whatdoyousay`}
