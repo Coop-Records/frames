@@ -52,9 +52,14 @@ export default async function handler(
 
     const userFid = data.action.interactor.fid as number;
     if (req.body.untrustedData.buttonIndex === 2) {
-      res.redirect(302, "https://warpcast.com/hume");
+      res.redirect(302, "https://warpcast.com/~/channel/coop-recs");
       res.statusCode = 302;
-      res.setHeader("location", "https://warpcast.com/hume");
+      res.setHeader("location", "https://warpcast.com/~/channel/coop-recs");
+      res.end();
+    } else if (req.body.untrustedData.buttonIndex === 3) {
+      res.redirect(302, "https://warpcast.com/bakergracemusic");
+      res.statusCode = 302;
+      res.setHeader("location", "https://warpcast.com/bakergracemusic");
       res.end();
     } else {
       if (!(await isFollowingCoopChannelAndAccount(userFid))) {
@@ -112,8 +117,10 @@ function followScreen(res: NextApiResponse) {
                   <meta name="fc:frame" content="vNext" />
                   <meta name="fc:frame:image" content=${endpointProd}/baker/follow.png />
                   <meta name="fc:frame:button:1" content="Retry" />
-                  <meta name="fc:frame:button:2" content="Follow @hume" />
+                  <meta name="fc:frame:button:2" content="Follow /coop-recs" />
                   <meta name="fc:frame:button:2:action" content="post_redirect" />
+                  <meta name="fc:frame:button:3" content="Follow @bakergracemusic" />
+                  <meta name="fc:frame:button:3:action" content="post_redirect" />
                   <meta name="og:image" content="op.png" />
                 `;
   res.setHeader("Content-Type", "text/html");
