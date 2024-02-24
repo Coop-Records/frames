@@ -42,37 +42,7 @@ export default async function handler(
       }
     );
 
-    const data = await response.json();
-
-    const address = data.action.interactor.verifications[0] as `0x${string}`;
-
-    if (!address) {
-      throw new Error();
-    }
-
-    const userFid = data.action.interactor.fid as number;
-    if (req.body.untrustedData.buttonIndex === 2) {
-      res.redirect(302, "https://warpcast.com/hume");
-      res.statusCode = 302;
-      res.setHeader("location", "https://warpcast.com/hume");
-      res.end();
-    } else {
-      if (!(await isFollowingCoopChannelAndAccount(userFid))) {
-        followScreen(res);
-      } else if (await isMintingSoldOut(address)) {
-        console.log("HERE1");
-        soldoutScreen(res);
-      } else if (await didUserAlreadyMint(address)) {
-        console.log("HERE2");
-
-        alreadyMintedScreen(res);
-      } else {
-        console.log("HERE3");
-
-        await mintSong(address);
-        successScreen(res);
-      }
-    }
+    return;
   } catch (error) {
     console.error("Request failed:", error);
     res.status(500).json({ error: "Internal Server Error" });
