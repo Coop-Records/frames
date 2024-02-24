@@ -53,32 +53,35 @@ export default async function handler(
       throw new Error();
     }
 
-    const userFid = data.action.interactor.fid as number;
+    soldoutScreen(res);
 
-    console.log("HERE1");
-    if (req.body.untrustedData.buttonIndex === 4) {
-      res.redirect(302, "https://warpcast.com/~/channel/coop-recs");
-      res.statusCode = 302;
-      res.setHeader("location", "https://warpcast.com/~/channel/coop-recs");
-      res.end();
-    } else {
-      if (!(await isFollowingChannel(userFid, "coop-recs"))) {
-        followScreen(res);
-      } else if (await isMintingSoldOut(address)) {
-        soldoutScreen(res);
-      } else if (await didUserAlreadyMint(address)) {
-        alreadyMintedScreen(res);
-      } else if (req.body.untrustedData.buttonIndex === 1) {
-        await mintSong(address, songContractAddress1);
-        successScreen(res);
-      } else if (req.body.untrustedData.buttonIndex === 2) {
-        await mintSong(address, songContractAddress2);
-        successScreen(res);
-      } else if (req.body.untrustedData.buttonIndex === 3) {
-        await mintSong(address, songContractAddress3);
-        successScreen(res);
-      }
-    }
+
+    // const userFid = data.action.interactor.fid as number;
+
+    // console.log("HERE1");
+    // if (req.body.untrustedData.buttonIndex === 4) {
+    //   res.redirect(302, "https://warpcast.com/~/channel/coop-recs");
+    //   res.statusCode = 302;
+    //   res.setHeader("location", "https://warpcast.com/~/channel/coop-recs");
+    //   res.end();
+    // } else {
+    //   if (!(await isFollowingChannel(userFid, "coop-recs"))) {
+    //     followScreen(res);
+    //   } else if (await isMintingSoldOut(address)) {
+    //     soldoutScreen(res);
+    //   } else if (await didUserAlreadyMint(address)) {
+    //     alreadyMintedScreen(res);
+    //   } else if (req.body.untrustedData.buttonIndex === 1) {
+    //     await mintSong(address, songContractAddress1);
+    //     successScreen(res);
+    //   } else if (req.body.untrustedData.buttonIndex === 2) {
+    //     await mintSong(address, songContractAddress2);
+    //     successScreen(res);
+    //   } else if (req.body.untrustedData.buttonIndex === 3) {
+    //     await mintSong(address, songContractAddress3);
+    //     successScreen(res);
+    //   }
+    // }
   } catch (error) {
     console.error("Request failed:", error);
     res.status(500).json({ error: "Internal Server Error" });

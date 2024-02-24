@@ -50,30 +50,31 @@ export default async function handler(
     if (!address) {
       throw new Error();
     }
+    soldoutScreen(res);
 
-    const userFid = data.action.interactor.fid as number;
-    if (req.body.untrustedData.buttonIndex === 2) {
-      res.redirect(302, "https://warpcast.com/~/channel/coop-recs");
-      res.statusCode = 302;
-      res.setHeader("location", "https://warpcast.com/~/channel/coop-recs");
-      res.end();
-    } else if (req.body.untrustedData.buttonIndex === 3) {
-      res.redirect(302, "https://warpcast.com/~/channel/soundxyz");
-      res.statusCode = 302;
-      res.setHeader("location", "https://warpcast.com/~/channel/soundxyz");
-      res.end();
-    } else {
-      if (!(await isFollowingCoopAndSound(userFid))) {
-        followScreen(res);
-      } else if (await isMintingSoldOut(address)) {
-        soldoutScreen(res);
-      } else if (await didUserAlreadyMint(address)) {
-        alreadyMintedScreen(res);
-      } else {
-        await mintSong(address);
-        successScreen(res);
-      }
-    }
+    // const userFid = data.action.interactor.fid as number;
+    // if (req.body.untrustedData.buttonIndex === 2) {
+    //   res.redirect(302, "https://warpcast.com/~/channel/coop-recs");
+    //   res.statusCode = 302;
+    //   res.setHeader("location", "https://warpcast.com/~/channel/coop-recs");
+    //   res.end();
+    // } else if (req.body.untrustedData.buttonIndex === 3) {
+    //   res.redirect(302, "https://warpcast.com/~/channel/soundxyz");
+    //   res.statusCode = 302;
+    //   res.setHeader("location", "https://warpcast.com/~/channel/soundxyz");
+    //   res.end();
+    // } else {
+    //   if (!(await isFollowingCoopAndSound(userFid))) {
+    //     followScreen(res);
+    //   } else if (await isMintingSoldOut(address)) {
+    //     soldoutScreen(res);
+    //   } else if (await didUserAlreadyMint(address)) {
+    //     alreadyMintedScreen(res);
+    //   } else {
+    //     await mintSong(address);
+    //     successScreen(res);
+    //   }
+    // }
   } catch (error) {
     console.error("Request failed:", error);
     res.status(500).json({ error: "Internal Server Error" });

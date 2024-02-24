@@ -46,34 +46,35 @@ export default async function handler(
     const data = await response.json();
 
     const address = data.action.interactor.verifications[0] as `0x${string}`;
+    soldoutScreen(res);
 
-    if (!address) {
-      throw new Error();
-    }
+    // if (!address) {
+    //   throw new Error();
+    // }
 
-    const userFid = data.action.interactor.fid as number;
-    if (req.body.untrustedData.buttonIndex === 2) {
-      res.redirect(302, "https://warpcast.com/~/channel/coop-recs");
-      res.statusCode = 302;
-      res.setHeader("location", "https://warpcast.com/~/channel/coop-recs");
-      res.end();
-    } else if (req.body.untrustedData.buttonIndex === 3) {
-      res.redirect(302, "https://warpcast.com/~/channel/toolsfml");
-      res.statusCode = 302;
-      res.setHeader("location", "https://warpcast.com/~/channel/toolsfml");
-      res.end();
-    } else {
-      if (!(await isFollowingCoopChannelAndAccount(userFid))) {
-        followScreen(res);
-      } else if (await isMintingSoldOut(address)) {
-        soldoutScreen(res);
-      } else if (await didUserAlreadyMint(address)) {
-        alreadyMintedScreen(res);
-      } else {
-        await mintSong(address);
-        successScreen(res);
-      }
-    }
+    // const userFid = data.action.interactor.fid as number;
+    // if (req.body.untrustedData.buttonIndex === 2) {
+    //   res.redirect(302, "https://warpcast.com/~/channel/coop-recs");
+    //   res.statusCode = 302;
+    //   res.setHeader("location", "https://warpcast.com/~/channel/coop-recs");
+    //   res.end();
+    // } else if (req.body.untrustedData.buttonIndex === 3) {
+    //   res.redirect(302, "https://warpcast.com/~/channel/toolsfml");
+    //   res.statusCode = 302;
+    //   res.setHeader("location", "https://warpcast.com/~/channel/toolsfml");
+    //   res.end();
+    // } else {
+    //   if (!(await isFollowingCoopChannelAndAccount(userFid))) {
+    //     followScreen(res);
+    //   } else if (await isMintingSoldOut(address)) {
+    //     soldoutScreen(res);
+    //   } else if (await didUserAlreadyMint(address)) {
+    //     alreadyMintedScreen(res);
+    //   } else {
+    //     await mintSong(address);
+    //     successScreen(res);
+    //   }
+    // }
   } catch (error) {
     console.error("Request failed:", error);
     res.status(500).json({ error: "Internal Server Error" });

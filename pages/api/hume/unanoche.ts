@@ -41,8 +41,7 @@ export default async function handler(
         }),
       }
     );
-
-    return;
+    soldoutScreen(res);
   } catch (error) {
     console.error("Request failed:", error);
     res.status(500).json({ error: "Internal Server Error" });
