@@ -8,31 +8,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const response = await fetch(
-      "https://api.neynar.com/v2/farcaster/frame/validate",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          api_key: neynarApiKey,
-          "Content-Type": "application/json",
-        },
-        // If you need to send a body, add it here
-        body: JSON.stringify({
-          message_bytes_in_hex: req.body.trustedData.messageBytes,
-        }),
-      }
-    );
-
-    const data = await response.json();
-
-    const address = data.action.interactor.verifications[0] as `0x${string}`;
-
-    if (!address) {
-      throw new Error();
-    }
-
-    const userFid = data.action.interactor.fid as number;
+    const userFid = req.body.recipientFid as number;
 
     if (await isFollowingCoopChannelAndAccount(userFid)) {
       res.status(200).send("");
