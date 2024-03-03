@@ -30,11 +30,12 @@ export default async function handler(
 ) {
   try {
     const { artist, song } = req.query;
+    console.log("SDF", artist, song);
     const entry = await supabase
       .from("frames")
       .select("*")
-      .eq("artist_name", artist)
-      .eq("song_name", song)
+      .eq("artist_smash", artist)
+      .eq("song_smash", song)
       .single();
     const songContractAddress = entry.data.contract_address;
 
@@ -168,12 +169,12 @@ function handleButtons(button_2: any, res: NextApiResponse) {
 }
 
 function successScreen(res: NextApiResponse, artist: string, song: string) {
-  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\n \n${song}\n \nCongrats! Free edition claimed.`;
+  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\\n \\n${song}\\n \\nCongrats! Free edition claimed.`;
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
                   <meta name="viewport" content="width=device-width, initial-scale=1" />
                   <meta name="fc:frame" content="vNext" />
-                  <meta name="fc:frame:image" content=${image} />
+                  <meta name="fc:frame:image" content="${image}" />
                   <meta name="og:image" content="op.png" />
                 `;
   res.setHeader("Content-Type", "text/html");
@@ -186,12 +187,12 @@ function alreadyMintedScreen(
   artist: string,
   song: string
 ) {
-  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\n \n${song}\n \nYou have already collected.`;
+  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\\n \\n${song}\\n \\nYou have already collected.`;
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
                   <meta name="viewport" content="width=device-width, initial-scale=1" />
                   <meta name="fc:frame" content="vNext" />
-                  <meta name="fc:frame:image" content=${image} />
+                  <meta name="fc:frame:image" content="${image}" />
                   <meta name="og:image" content="op.png" />
                 `;
   res.setHeader("Content-Type", "text/html");
@@ -205,10 +206,11 @@ function followScreen(
   artist: string,
   song: string
 ) {
-  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\n \n${song}\n \nPlease follow ${buttons.map(
-    (button) => (isEmpty(button) ? "" : `${button} `)
-  )}before collecting`;
-  let buttonMetas = `<meta name="fc:frame:button:1" content="Retry" />\n`;
+  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\\n \\n${song}\\n \\nPlease follow:\\n \\n${buttons
+    .filter((button) => !isEmpty(button))
+    .join("\\n")}\\n \\nbefore collecting`;
+
+  let buttonMetas = `<meta name="fc:frame:button:1" content="Retry" />\\n`;
 
   buttons.forEach((button, i) => {
     if (!isEmpty(button)) {
@@ -223,7 +225,7 @@ function followScreen(
                     <meta name="description" content="Coop Recs Frame" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <meta name="fc:frame" content="vNext" />
-                    <meta name="fc:frame:image" content=${image} />
+                    <meta name="fc:frame:image" content="${image}" />
                     <meta name="fc:frame:button:1" content="Retry" />
                     ${buttonMetas}
                     <meta name="og:image" content="op.png" />
@@ -234,13 +236,13 @@ function followScreen(
 }
 
 function soldoutScreen(res: NextApiResponse, artist: string, song: string) {
-  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\n \n${song}\n \nSold Out`;
+  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\\n \\n${song}\\n \\nSold Out`;
 
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
                   <meta name="viewport" content="width=device-width, initial-scale=1" />
                   <meta name="fc:frame" content="vNext" />
-                  <meta name="fc:frame:image" content=${image} />
+                  <meta name="fc:frame:image" content="${image}" />
                   <meta name="og:image" content="op.png" />
                 `;
   res.setHeader("Content-Type", "text/html");
@@ -260,7 +262,7 @@ async function isFollowing(
     } else if (button.startsWith("/")) {
       return isFollowingChannel(fid, button.slice(1));
     } else {
-      return false;
+      return true;
     }
   });
   return isFollowing;

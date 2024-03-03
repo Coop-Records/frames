@@ -21,12 +21,7 @@ export default async function handler(request: NextRequest) {
   //   new URL("https://frames.cooprecords.xyz/sf.otf", import.meta.url)
   // ).then((res) => res.arrayBuffer());
   const copy = searchParams.get("copy") as string;
-  const copyWithLineBreaks = copy.split("\n").map((line, index) => (
-    <React.Fragment key={index}>
-      {line}
-      <br />
-    </React.Fragment>
-  ));
+
   console.log(copy);
 
   return new ImageResponse(
@@ -115,7 +110,7 @@ export default async function handler(request: NextRequest) {
               flexDirection: "column",
               alignItems: "flex-start",
               borderRadius: "10px",
-              overflow: "hidden",
+              overflow: "visible",
               whiteSpace: "preLine",
               // boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", // Example drop shadow
             }}
