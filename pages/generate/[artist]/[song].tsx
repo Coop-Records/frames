@@ -10,7 +10,7 @@ interface HomeProps {
 
 export default function Home({ artist, song, entry }: HomeProps) {
   const endpointLocal = "https://1d60-73-95-175-222.ngrok-free.app";
-  const endpointProd = endpointLocal; //"https://frames.cooprecords.xyz";
+  const endpointProd = "https://frames.cooprecords.xyz";
 
   console.log(entry);
 

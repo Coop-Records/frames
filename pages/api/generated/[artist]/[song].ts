@@ -19,7 +19,7 @@ import { base } from "viem/chains";
 const superMinterContractAddress = "0x000000000001A36777f9930aAEFf623771b13e70";
 
 const endpointLocal = "https://1d60-73-95-175-222.ngrok-free.app";
-const endpointProd = endpointLocal; //"https://frames.cooprecords.xyz";
+const endpointProd = "https://frames.cooprecords.xyz";
 
 const neynarApiKey: string = process.env.NEYNAR_ONCHAIN_KIT_API_KEY as string;
 const OPAlchemyKey = process.env.ALCHEMY_KEY as string;
