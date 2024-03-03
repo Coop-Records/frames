@@ -28,7 +28,7 @@ export default function Home({ artist, song, entry }: HomeProps) {
         <meta name="og:image" content={entry?.data?.image_url} />
         <meta
           name="fc:frame:post_url"
-          content={`${endpointProd}/api/${artist}/${song}`}
+          content={`${endpointProd}/api/generated/${artist}/${song}`}
         />
         <meta name="fc:frame:button:1" content="Collect" />
       </Head>

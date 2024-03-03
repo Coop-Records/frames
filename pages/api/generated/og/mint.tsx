@@ -42,7 +42,6 @@ export default async function handler(request: NextRequest) {
           height: "100%",
           flexDirection: "column",
           alignItems: "center",
-          borderRadius: "10px",
           overflow: "hidden",
           // boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", // Example drop shadow
         }}
@@ -67,17 +66,18 @@ export default async function handler(request: NextRequest) {
           }}
         />
         <img
-          width="86px"
-          height="71px"
+          width="150px"
+          height="120px"
           style={{
             position: "absolute",
             top: 0,
             right: 0,
+            margin: "50px",
             // width: "100%",
             // height: "100%",
             // backgroundColor: "rgba(255, 255, 255, 0.5)", /* Adjust the background color and opacity as needed */
 
-            filter: "blur(50px)" /* Adjust the blur intensity as needed */,
+            // filter: "blur(50px)" /* Adjust the blur intensity as needed */,
           }}
           src={"https://frames.cooprecords.xyz/crm.png"}
         />
