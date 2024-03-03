@@ -52,22 +52,54 @@ const AddSongPage: NextPage = () => {
 
       const actualUrl = getUrlParameterValue(imageUrl);
 
-      const { data, error } = await supabase.from("frames").insert([
-        {
-          artist_name: artistName,
-          song_name: songName,
-          image_url: actualUrl,
-          button_2: button2,
-          button_3: button3,
-          button_4: button4,
-          button_fid_2: buttonFid2,
-          button_fid_3: buttonFid3,
-          button_fid_4: buttonFid4,
-          contract_address: contractAddress,
-          wallet_address: account.address,
-          private_key: privateKey,
-        },
-      ]);
+      const { data: query, error: queryError } = await supabase
+        .from("your_table_name")
+        .select("id")
+        .eq("artist_smash", artistName.replaceAll(" ", ""))
+        .eq("song_smash", songName.replaceAll(" ", ""))
+        .single();
+
+      if (query) {
+        const { data, error } = await supabase
+          .from("frames")
+          .update([
+            {
+              artist_name: artistName,
+              song_name: songName,
+              song_smash: songName.replaceAll(" ", ""),
+              artist_smash: artistName.replaceAll(" ", ""),
+              image_url: actualUrl,
+              button_2: button2,
+              button_3: button3,
+              button_4: button4,
+              button_fid_2: buttonFid2,
+              button_fid_3: buttonFid3,
+              button_fid_4: buttonFid4,
+              contract_address: contractAddress,
+            },
+          ])
+          .eq("id", query.id)
+          .single();
+      } else {
+        const { data, error } = await supabase.from("frames").insert([
+          {
+            artist_name: artistName,
+            song_name: songName,
+            song_smash: songName.replaceAll(" ", ""),
+            artist_smash: artistName.replaceAll(" ", ""),
+            image_url: actualUrl,
+            button_2: button2,
+            button_3: button3,
+            button_4: button4,
+            button_fid_2: buttonFid2,
+            button_fid_3: buttonFid3,
+            button_fid_4: buttonFid4,
+            contract_address: contractAddress,
+            wallet_address: account.address,
+            private_key: privateKey,
+          },
+        ]);
+      }
 
       setMessage(
         `Song added successfully!\nFund Wallet Address: ${account.address}`

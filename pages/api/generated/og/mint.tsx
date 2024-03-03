@@ -34,7 +34,7 @@ export default async function handler(request: NextRequest) {
       <div
         style={{
           fontFamily: "Monospace",
-          fontSize: "60px",
+          fontSize: "80px",
           color: "white",
           display: "flex",
           position: "relative",
@@ -66,6 +66,21 @@ export default async function handler(request: NextRequest) {
             filter: "blur(50px)" /* Adjust the blur intensity as needed */,
           }}
         />
+        <img
+          width="86px"
+          height="71px"
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            // width: "100%",
+            // height: "100%",
+            // backgroundColor: "rgba(255, 255, 255, 0.5)", /* Adjust the background color and opacity as needed */
+
+            filter: "blur(50px)" /* Adjust the blur intensity as needed */,
+          }}
+          src={"https://frames.cooprecords.xyz/crm.png"}
+        />
         <div
           style={{
             position: "absolute",
@@ -96,7 +111,7 @@ export default async function handler(request: NextRequest) {
               position: "relative",
               width: "800",
               height: "600",
-              marginLeft: "20px",
+              marginLeft: "100px",
               flexDirection: "column",
               alignItems: "flex-start",
               borderRadius: "10px",
