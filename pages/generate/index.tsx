@@ -102,7 +102,12 @@ const AddSongPage: NextPage = () => {
       }
 
       setMessage(
-        `Song added successfully!\nFund Wallet Address: ${account.address}`
+        `Song added successfully!\nFund Wallet Address: ${
+          account.address
+        }. The frame address is: https://frames.cooprecords.xyz/generate/${artistName.replaceAll(
+          " ",
+          ""
+        )}/${songName.replaceAll(" ", "")}`
       );
       setArtistName("");
       setSongName("");
