@@ -14,7 +14,7 @@ export const config = {
 // http://localhost:3001/api/og?image1={}&image2={}&image3={}
 export default async function handler(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const image = searchParams.get("image") as string;;
+  const image = searchParams.get("image") as string;
 
   // const fontData = await fetch(
   //   new URL("https://frames.cooprecords.xyz/sf.otf", import.meta.url)
@@ -54,7 +54,8 @@ export default async function handler(request: NextRequest) {
             left: 0,
             width: "100%",
             height: "100%",
-            // backgroundColor: "rgba(255, 255, 255, 0.5)", /* Adjust the background color and opacity as needed */
+            backgroundColor:
+              "rgba(255, 255, 255, 0.5)" /* Adjust the background color and opacity as needed */,
 
             filter: "blur(50px)" /* Adjust the blur intensity as needed */,
           }}
