@@ -55,9 +55,9 @@ export default async function handler(request: NextRequest) {
             width: "100%",
             height: "100%",
             backgroundColor:
-              "rgba(255, 255, 255, 0.5)" /* Adjust the background color and opacity as needed */,
+              "rgba(0, 0, 0, 0.5)" /* Adjust the background color and opacity as needed */,
 
-            filter: "blur(50px)" /* Adjust the blur intensity as needed */,
+            filter: "blur(100px)" /* Adjust the blur intensity as needed */,
           }}
         />
         <img
