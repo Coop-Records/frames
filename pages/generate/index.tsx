@@ -53,7 +53,7 @@ const AddSongPage: NextPage = () => {
       const actualUrl = getUrlParameterValue(imageUrl);
 
       const { data: query, error: queryError } = await supabase
-        .from("your_table_name")
+        .from("frames")
         .select("id")
         .eq("artist_smash", artistName.replaceAll(" ", ""))
         .eq("song_smash", songName.replaceAll(" ", ""))
