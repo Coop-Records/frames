@@ -16,9 +16,6 @@ export default async function handler(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const image = searchParams.get("image") as string;
 
-  // const fontData = await fetch(
-  //   new URL("https://frames.cooprecords.xyz/sf.otf", import.meta.url)
-  // ).then((res) => res.arrayBuffer());
   const copy = searchParams.get("copy") as string;
 
   console.log(copy);
