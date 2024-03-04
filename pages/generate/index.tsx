@@ -54,7 +54,7 @@ const AddSongPage: NextPage = () => {
 
       const { data: query, error: queryError } = await supabase
         .from("frames")
-        .select("id")
+        .select("id, wallet_address")
         .eq("artist_smash", artistName.replaceAll(" ", ""))
         .eq("song_smash", songName.replaceAll(" ", ""))
         .single();
@@ -80,6 +80,14 @@ const AddSongPage: NextPage = () => {
           ])
           .eq("id", query.id)
           .single();
+        setMessage(
+          `Song added successfully!\nFund Wallet Address: ${
+            query.wallet_address
+          }. The frame address is: https://frames.cooprecords.xyz/generate/${artistName.replaceAll(
+            " ",
+            ""
+          )}/${songName.replaceAll(" ", "")}`
+        );
       } else {
         const { data, error } = await supabase.from("frames").insert([
           {
@@ -99,16 +107,16 @@ const AddSongPage: NextPage = () => {
             private_key: privateKey,
           },
         ]);
+        setMessage(
+          `Song added successfully!\nFund Wallet Address: ${
+            account.address
+          }. The frame address is: https://frames.cooprecords.xyz/generate/${artistName.replaceAll(
+            " ",
+            ""
+          )}/${songName.replaceAll(" ", "")}`
+        );
       }
 
-      setMessage(
-        `Song added successfully!\nFund Wallet Address: ${
-          account.address
-        }. The frame address is: https://frames.cooprecords.xyz/generate/${artistName.replaceAll(
-          " ",
-          ""
-        )}/${songName.replaceAll(" ", "")}`
-      );
       setArtistName("");
       setSongName("");
       setImageUrl("");
