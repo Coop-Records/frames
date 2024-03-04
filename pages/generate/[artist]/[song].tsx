@@ -12,10 +12,7 @@ export default function Home({ artist, song, entry }: HomeProps) {
   const endpointLocal = "https://1d60-73-95-175-222.ngrok-free.app";
   const endpointProd = "https://frames.cooprecords.xyz";
 
-  console.log(entry);
-
-  // TODO: Implement OG Image initial
-  const image = `${endpointProd}/api/generated/og/mint?copy=${entry.data.artist_name}\\n \\n${entry.data.song_name}\\n`;
+  const image = `${endpointProd}/api/generated/og/mint?image=${entry.data.image_url}&copy=${entry.data.artist_name}\\n \\n${entry.data.song_name}\\n`;
   console.log(`${image}`);
   return (
     <>

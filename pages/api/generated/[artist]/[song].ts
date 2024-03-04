@@ -114,7 +114,8 @@ export default async function handler(
           res,
           [entry.data.button_2, entry.data.button_3, entry.data.button_4],
           entry.data.artist_name,
-          entry.data.song_name
+          entry.data.song_name,
+          entry.data.image_url
         );
       } else if (
         await isMintingSoldOut(
@@ -124,7 +125,12 @@ export default async function handler(
           deployerAccount
         )
       ) {
-        soldoutScreen(res, entry.data.artist_name, entry.data.song_name);
+        soldoutScreen(
+          res,
+          entry.data.artist_name,
+          entry.data.song_name,
+          entry.data.image_url
+        );
       } else if (
         await didUserAlreadyMint(
           address,
@@ -132,7 +138,12 @@ export default async function handler(
           publicServerClient
         )
       ) {
-        alreadyMintedScreen(res, entry.data.artist_name, entry.data.song_name);
+        alreadyMintedScreen(
+          res,
+          entry.data.artist_name,
+          entry.data.song_name,
+          entry.data.image_url
+        );
       } else {
         await mintSong(
           address,
@@ -141,7 +152,12 @@ export default async function handler(
           deployerAccount,
           walletClient
         );
-        successScreen(res, entry.data.artist_name, entry.data.song_name);
+        successScreen(
+          res,
+          entry.data.artist_name,
+          entry.data.song_name,
+          entry.data.image_url
+        );
       }
     }
   } catch (error) {
@@ -168,8 +184,13 @@ function handleButtons(button_2: any, res: NextApiResponse) {
   }
 }
 
-function successScreen(res: NextApiResponse, artist: string, song: string) {
-  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\\n \\n${song}\\n \\nCongrats! Free edition claimed.`;
+function successScreen(
+  res: NextApiResponse,
+  artist: string,
+  song: string,
+  imageUrl: string
+) {
+  const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nCongrats! Free edition claimed.`;
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
                   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -185,9 +206,10 @@ function successScreen(res: NextApiResponse, artist: string, song: string) {
 function alreadyMintedScreen(
   res: NextApiResponse,
   artist: string,
-  song: string
+  song: string,
+  imageUrl: string
 ) {
-  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\\n \\n${song}\\n \\nYou have already collected.`;
+  const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nYou have already collected.`;
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
                   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -204,9 +226,10 @@ function followScreen(
   res: NextApiResponse,
   buttons: string[],
   artist: string,
-  song: string
+  song: string,
+  imageUrl: string
 ) {
-  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\\n \\n${song}\\n \\nPlease follow:\\n \\n${buttons
+  const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nPlease follow:\\n \\n${buttons
     .filter((button) => !isEmpty(button))
     .join("\\n")}\\n \\nbefore collecting`;
 
@@ -235,8 +258,13 @@ function followScreen(
   res.status(200).send(htmlContent);
 }
 
-function soldoutScreen(res: NextApiResponse, artist: string, song: string) {
-  const image = `${endpointProd}/api/generated/og/mint?copy=${artist}\\n \\n${song}\\n \\nSold Out`;
+function soldoutScreen(
+  res: NextApiResponse,
+  artist: string,
+  song: string,
+  imageUrl: string
+) {
+  const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nSold Out`;
 
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />

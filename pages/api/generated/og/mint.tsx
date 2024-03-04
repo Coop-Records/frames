@@ -14,8 +14,7 @@ export const config = {
 // http://localhost:3001/api/og?image1={}&image2={}&image3={}
 export default async function handler(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const image =
-    "https://d2i9ybouka0ieh.cloudfront.net/artist-uploads/0f524dab-4861-4eb6-aa51-86a3911b9e42/RELEASE_COVER_IMAGE/8423404-newImage.png"; //searchParams.get("image") as string;
+  const image = searchParams.get("image") as string;;
 
   // const fontData = await fetch(
   //   new URL("https://frames.cooprecords.xyz/sf.otf", import.meta.url)
