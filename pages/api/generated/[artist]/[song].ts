@@ -30,7 +30,6 @@ export default async function handler(
 ) {
   try {
     const { artist, song } = req.query;
-    console.log("SDF", artist, song);
     const entry = await supabase
       .from("frames")
       .select("*")
@@ -283,16 +282,25 @@ async function isFollowing(
   buttons: string[],
   buttonFids: string[]
 ): Promise<boolean> {
-  const isFollowing = buttons.every((button, i) => {
+  const nonEmptyButtons = buttons.filter((button) => button !== "");
+
+  const isFollowingPromises = nonEmptyButtons.map(async (button, i) => {
     if (button.startsWith("@")) {
       const followFid = buttonFids[i];
-      return isFollowingAccount(fid, Number(followFid));
+      const isFol = await isFollowingAccount(fid, Number(followFid));
+      console.log("@", isFol);
+      return isFol;
     } else if (button.startsWith("/")) {
-      return isFollowingChannel(fid, button.slice(1));
+      const isFol = await isFollowingChannel(fid, button.slice(1));
+      console.log("/", isFol);
+      return isFol;
     } else {
-      return true;
+      return false;
     }
   });
+  const results = await Promise.all(isFollowingPromises);
+  const isFollowing = results.every((result) => result);
+
   return isFollowing;
 }
 
@@ -345,7 +353,6 @@ async function isFollowingChannel(
     const fids = data.users.map((user: { fid: any }) => user.fid);
 
     if (fids.includes(fid)) {
-      console.log(fid, channel, true);
       return true;
     }
 
@@ -355,7 +362,6 @@ async function isFollowingChannel(
       cursor = data.next.cursor;
     }
   }
-  console.log(fid, channel, false);
 
   return false;
 }
@@ -367,7 +373,6 @@ async function isMintingSoldOut(
   DeployerAccount: PrivateKeyAccount
 ): Promise<boolean> {
   try {
-    console.log(mintToAddress);
     const { request, result } = await BASEpublicServerClient.simulateContract({
       address: superMinterContractAddress,
       abi: SuperMinter,
@@ -396,7 +401,6 @@ async function isMintingSoldOut(
       value: parseEther("0.000777"),
     });
   } catch (e) {
-    // console.log(e);
     return true;
   }
   return false;
@@ -415,7 +419,6 @@ async function didUserAlreadyMint(
     args: [mintToAddress],
   })) as number[];
   for (let i = 0; i < owned.length; i++) {
-    console.log("HERE");
     if (owned[i] > cutoff) return true;
   }
   return false;
