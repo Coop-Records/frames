@@ -144,19 +144,28 @@ export default async function handler(
           entry.data.image_url
         );
       } else {
-        await mintSong(
-          address,
-          songContractAddress,
-          publicServerClient,
-          deployerAccount,
-          walletClient
-        );
-        successScreen(
-          res,
-          entry.data.artist_name,
-          entry.data.song_name,
-          entry.data.image_url
-        );
+        try {
+          await mintSong(
+            address,
+            songContractAddress,
+            publicServerClient,
+            deployerAccount,
+            walletClient
+          );
+          successScreen(
+            res,
+            entry.data.artist_name,
+            entry.data.song_name,
+            entry.data.image_url
+          );
+        } catch (e) {
+          soldoutScreen(
+            res,
+            entry.data.artist_name,
+            entry.data.song_name,
+            entry.data.image_url
+          );
+        }
       }
     }
   } catch (error) {
