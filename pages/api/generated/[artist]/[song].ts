@@ -14,7 +14,7 @@ import {
 import { supabase } from "@/lib/supabaseClient";
 import { isEmpty, isNil } from "lodash";
 import { privateKeyToAccount } from "viem/accounts";
-import { base } from "viem/chains";
+import { base, optimism } from "viem/chains";
 
 const superMinterContractAddress = "0x000000000001A36777f9930aAEFf623771b13e70";
 
@@ -22,7 +22,11 @@ const endpointLocal = "https://1d60-73-95-175-222.ngrok-free.app";
 const endpointProd = "https://frames.cooprecords.xyz";
 
 const neynarApiKey: string = process.env.NEYNAR_ONCHAIN_KIT_API_KEY as string;
-const OPAlchemyKey = process.env.ALCHEMY_KEY as string;
+const baseAlchemyKey = process.env.ALCHEMY_KEY as string;
+const baseUrl = `https://base-mainnet.g.alchemy.com/v2/${baseAlchemyKey}`;
+
+const opAlchemyKey = process.env.OP_ALCHEMY_KEY as string;
+const opUrl = `https://opt-mainnet.g.alchemy.com/v2/${opAlchemyKey}`;
 
 export default async function handler(
   req: NextApiRequest,
@@ -42,12 +46,12 @@ export default async function handler(
       `${entry.data.private_key as `0x${string}`}`
     );
     const publicServerClient = createPublicClient({
-      chain: base,
-      transport: http(`https://base-mainnet.g.alchemy.com/v2/${OPAlchemyKey}`),
+      chain: entry.data.chain === "base" ? base : optimism,
+      transport: http(entry.data.chain === "base" ? baseUrl : opUrl),
     });
     const walletClient = createWalletClient({
-      chain: base,
-      transport: http(`https://base-mainnet.g.alchemy.com/v2/${OPAlchemyKey}`),
+      chain: entry.data.chain === "base" ? base : optimism,
+      transport: http(entry.data.chain === "base" ? baseUrl : opUrl),
       account: deployerAccount,
     });
 
@@ -378,11 +382,11 @@ async function isFollowingChannel(
 async function isMintingSoldOut(
   mintToAddress: `0x${string}`,
   songContractAddress: `0x${string}`,
-  BASEpublicServerClient: PublicClient,
+  publicServerClient: PublicClient,
   DeployerAccount: PrivateKeyAccount
 ): Promise<boolean> {
   try {
-    const { request, result } = await BASEpublicServerClient.simulateContract({
+    const { request, result } = await publicServerClient.simulateContract({
       address: superMinterContractAddress,
       abi: SuperMinter,
       functionName: "mintTo",
@@ -417,11 +421,11 @@ async function isMintingSoldOut(
 async function didUserAlreadyMint(
   mintToAddress: `0x${string}`,
   songContractAddress: `0x${string}`,
-  BASEpublicServerClient: PublicClient
+  publicServerClient: PublicClient
 ): Promise<boolean> {
   // cutoff is id 1461
   const cutoff = 0;
-  const owned = (await BASEpublicServerClient.readContract({
+  const owned = (await publicServerClient.readContract({
     address: songContractAddress,
     abi: Song,
     functionName: "tokensOfOwner",
@@ -436,13 +440,13 @@ async function didUserAlreadyMint(
 async function mintSong(
   mintToAddress: `0x${string}`,
   songContractAddress: `0x${string}`,
-  BASEpublicServerClient: PublicClient,
+  publicServerClient: PublicClient,
   DeployerAccount: PrivateKeyAccount,
-  BASEwalletClient: WalletClient
+  walletClient: WalletClient
 ) {
   const abi = SuperMinter;
 
-  const { request, result } = await BASEpublicServerClient.simulateContract({
+  const { request, result } = await publicServerClient.simulateContract({
     address: superMinterContractAddress,
     abi: SuperMinter,
     functionName: "mintTo",
@@ -470,7 +474,7 @@ async function mintSong(
     value: parseEther("0.000777"),
   });
 
-  const hash = await BASEwalletClient.writeContract(request);
+  const hash = await walletClient.writeContract(request);
 
   return {
     hash,
