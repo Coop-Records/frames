@@ -126,7 +126,7 @@ export default async function handler(
           songContractAddress,
           publicServerClient,
           deployerAccount,
-          entry.data.edition
+          entry.data.edition === "open"
         )
       ) {
         soldoutScreen(
@@ -156,7 +156,7 @@ export default async function handler(
             publicServerClient,
             deployerAccount,
             walletClient,
-            entry.data.edition
+            entry.data.edition === "open"
           );
           successScreen(
             res,
