@@ -16,6 +16,7 @@ const AddSongPage: NextPage = () => {
   const [buttonFid4, setButtonLabel4] = useState("");
   const [contractAddress, setContractAddress] = useState("");
   const [chain, setChain] = useState("base"); // Default chain selection
+  const [edition, setEdition] = useState("limited"); // Default chain selection
 
   const [message, setMessage] = useState("");
 
@@ -78,6 +79,7 @@ const AddSongPage: NextPage = () => {
               button_fid_4: buttonFid4,
               contract_address: contractAddress,
               chain,
+              edition,
             },
           ])
           .eq("id", query.id)
@@ -108,6 +110,7 @@ const AddSongPage: NextPage = () => {
             wallet_address: account.address,
             private_key: privateKey,
             chain,
+            edition,
           },
         ]);
         setMessage(
@@ -243,6 +246,15 @@ const AddSongPage: NextPage = () => {
             <select value={chain} onChange={(e) => setChain(e.target.value)}>
               <option value="base">Base</option>
               <option value="optimism">Optimism</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            edition:
+            <select value={chain} onChange={(e) => setEdition(e.target.value)}>
+              <option value="limited">Limited</option>
+              <option value="open">Open</option>
             </select>
           </label>
         </div>

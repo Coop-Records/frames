@@ -125,7 +125,8 @@ export default async function handler(
           address,
           songContractAddress,
           publicServerClient,
-          deployerAccount
+          deployerAccount,
+          entry.data.edition
         )
       ) {
         soldoutScreen(
@@ -154,7 +155,8 @@ export default async function handler(
             songContractAddress,
             publicServerClient,
             deployerAccount,
-            walletClient
+            walletClient,
+            entry.data.edition
           );
           successScreen(
             res,
@@ -383,7 +385,8 @@ async function isMintingSoldOut(
   mintToAddress: `0x${string}`,
   songContractAddress: `0x${string}`,
   publicServerClient: PublicClient,
-  DeployerAccount: PrivateKeyAccount
+  DeployerAccount: PrivateKeyAccount,
+  isOpen: boolean
 ): Promise<boolean> {
   try {
     const { request, result } = await publicServerClient.simulateContract({
@@ -393,7 +396,7 @@ async function isMintingSoldOut(
       args: [
         [
           songContractAddress,
-          1,
+          isOpen ? 0 : 1,
           0,
           mintToAddress,
           1,
@@ -414,6 +417,7 @@ async function isMintingSoldOut(
       value: parseEther("0.000777"),
     });
   } catch (e) {
+    console.log(e);
     return true;
   }
   return false;
@@ -442,7 +446,8 @@ async function mintSong(
   songContractAddress: `0x${string}`,
   publicServerClient: PublicClient,
   DeployerAccount: PrivateKeyAccount,
-  walletClient: WalletClient
+  walletClient: WalletClient,
+  isOpen: boolean
 ) {
   const abi = SuperMinter;
 
@@ -453,7 +458,7 @@ async function mintSong(
     args: [
       [
         songContractAddress,
-        1,
+        isOpen ? 0 : 1,
         0,
         mintToAddress,
         1,
