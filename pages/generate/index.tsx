@@ -252,7 +252,7 @@ const AddSongPage: NextPage = () => {
         <div>
           <label>
             edition:
-            <select value={chain} onChange={(e) => setEdition(e.target.value)}>
+            <select value={edition} onChange={(e) => setEdition(e.target.value)}>
               <option value="limited">Limited</option>
               <option value="open">Open</option>
             </select>
