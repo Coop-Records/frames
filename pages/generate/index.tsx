@@ -17,6 +17,7 @@ const AddSongPage: NextPage = () => {
   const [contractAddress, setContractAddress] = useState("");
   const [chain, setChain] = useState("base"); // Default chain selection
   const [edition, setEdition] = useState("limited"); // Default chain selection
+  const [purchaseEdition, setPurchaseEdition] = useState("limited"); // Default chain selection
 
   const [message, setMessage] = useState("");
 
@@ -80,6 +81,7 @@ const AddSongPage: NextPage = () => {
               contract_address: contractAddress,
               chain,
               edition,
+              paid_edition: purchaseEdition,
             },
           ])
           .eq("id", query.id)
@@ -111,6 +113,7 @@ const AddSongPage: NextPage = () => {
             private_key: privateKey,
             chain,
             edition,
+            paid_edition: purchaseEdition,
           },
         ]);
         setMessage(
@@ -251,8 +254,23 @@ const AddSongPage: NextPage = () => {
         </div>
         <div>
           <label>
-            edition:
-            <select value={edition} onChange={(e) => setEdition(e.target.value)}>
+            Sponsored Edition:
+            <select
+              value={edition}
+              onChange={(e) => setEdition(e.target.value)}
+            >
+              <option value="limited">Limited</option>
+              <option value="open">Open</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            Purchase Edition:
+            <select
+              value={purchaseEdition}
+              onChange={(e) => setPurchaseEdition(e.target.value)}
+            >
               <option value="limited">Limited</option>
               <option value="open">Open</option>
             </select>

@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { supabase } from "@/lib/supabaseClient";
 import Head from "next/head";
+import { endpointProd } from "@/utils/constants";
 
 interface HomeProps {
   artist: string;
@@ -9,9 +10,6 @@ interface HomeProps {
 }
 
 export default function Home({ artist, song, entry }: HomeProps) {
-  const endpointLocal = "https://1d60-73-95-175-222.ngrok-free.app";
-  const endpointProd = "https://frames.cooprecords.xyz";
-
   const image = `${endpointProd}/api/generated/og/mint?image=${entry.data.image_url}&copy=${entry.data.artist_name}\\n \\n${entry.data.song_name}\\n`;
   console.log(`${image}`);
   return (
@@ -27,7 +25,13 @@ export default function Home({ artist, song, entry }: HomeProps) {
           name="fc:frame:post_url"
           content={`${endpointProd}/api/generated/${artist}/${song}`}
         />
-        <meta name="fc:frame:button:1" content="Collect" />
+        <meta name="fc:frame:button:1" content="Buy Edition" />
+        <meta property="fc:frame:button:1:action" content="tx" />
+        <meta
+          name="fc:frame:button:1:target"
+          content={`${endpointProd}/api/generated/${artist}/${song}`}
+        />
+        <meta name="fc:frame:button:2" content="Claim Free Edition" />
       </Head>
       <div>This is a Farcaster frame. What are you doing here?</div>
     </>

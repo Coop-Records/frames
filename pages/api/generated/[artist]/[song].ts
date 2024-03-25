@@ -8,6 +8,7 @@ import {
   WalletClient,
   createPublicClient,
   createWalletClient,
+  encodeFunctionData,
   http,
   parseEther,
 } from "viem";
@@ -15,11 +16,9 @@ import { supabase } from "@/lib/supabaseClient";
 import { isEmpty, isNil } from "lodash";
 import { privateKeyToAccount } from "viem/accounts";
 import { base, optimism } from "viem/chains";
+import { endpointProd } from "@/utils/constants";
 
 const superMinterContractAddress = "0x000000000001A36777f9930aAEFf623771b13e70";
-
-const endpointLocal = "https://1d60-73-95-175-222.ngrok-free.app";
-const endpointProd = "https://frames.cooprecords.xyz";
 
 const neynarApiKey: string = process.env.NEYNAR_ONCHAIN_KIT_API_KEY as string;
 const baseAlchemyKey = process.env.ALCHEMY_KEY as string;
@@ -80,25 +79,34 @@ export default async function handler(
     }
 
     const userFid = data.action.interactor.fid as number;
-    if (
-      req.body.untrustedData.buttonIndex === 2 &&
+    if (req.body.untrustedData.buttonIndex === 1) {
+      const mintHex = await getMintHex(
+        address,
+        songContractAddress,
+        entry.data.edition === "open"
+      );
+      res.status(200).json({
+        chainId: `eip155:${entry.data.chain === "base" ? "8453" : "10"}`,
+        method: "eth_sendTransaction",
+        params: {
+          abi: SuperMinter, // JSON ABI of the function selector and any errors
+          to: superMinterContractAddress,
+          data: mintHex,
+          value: parseEther("0.000777").toString(),
+        },
+      });
+    } else if (
+      req.body.untrustedData.buttonIndex === 3 &&
       !isEmpty(entry.data.button_2)
     ) {
       const button = entry.data.button_2;
       handleButtons(button, res);
       res.end();
     } else if (
-      req.body.untrustedData.buttonIndex === 3 &&
+      req.body.untrustedData.buttonIndex === 4 &&
       !isEmpty(entry.data.button_3)
     ) {
       const button = entry.data.button_3;
-      handleButtons(button, res);
-      res.end();
-    } else if (
-      req.body.untrustedData.buttonIndex === 4 &&
-      !isEmpty(entry.data.button_4)
-    ) {
-      const button = entry.data.button_4;
       handleButtons(button, res);
       res.end();
     } else {
@@ -247,13 +255,21 @@ function followScreen(
     .filter((button) => !isEmpty(button))
     .join("\\n")}\\n \\nbefore collecting`;
 
-  let buttonMetas = `<meta name="fc:frame:button:1" content="Retry" />\\n`;
+  let buttonMetas = `
+    <meta name="fc:frame:button:1" content="Buy Edition" />
+    <meta property="fc:frame:button:1:action" content="tx" />
+    <meta
+      name="fc:frame:button:1:target"
+      content=${endpointProd}/api/generated/${artist}/${song}
+    />
+    <meta name="fc:frame:button:2" content="Retry" />
+  `;
 
   buttons.forEach((button, i) => {
     if (!isEmpty(button)) {
       buttonMetas += `
-      <meta name="fc:frame:button:${i + 2}" content="Follow ${button}" />
-      <meta name="fc:frame:button:${i + 2}:action" content="post_redirect" />
+      <meta name="fc:frame:button:${i + 3}" content="Follow ${button}" />
+      <meta name="fc:frame:button:${i + 3}:action" content="post_redirect" />
       `;
     }
   });
@@ -263,7 +279,6 @@ function followScreen(
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <meta name="fc:frame" content="vNext" />
                     <meta name="fc:frame:image" content="${image}" />
-                    <meta name="fc:frame:button:1" content="Retry" />
                     ${buttonMetas}
                     <meta name="og:image" content="op.png" />
                   `;
@@ -286,6 +301,12 @@ function soldoutScreen(
                   <meta name="fc:frame" content="vNext" />
                   <meta name="fc:frame:image" content="${image}" />
                   <meta name="og:image" content="op.png" />
+                  <meta name="fc:frame:button:1" content="Buy Edition" />
+                  <meta property="fc:frame:button:1:action" content="tx" />
+                  <meta
+                    name="fc:frame:button:1:target"
+                    content=${endpointProd}/api/generated/${artist}/${song}
+                  />
                 `;
   res.setHeader("Content-Type", "text/html");
 
@@ -379,6 +400,43 @@ async function isFollowingChannel(
   }
 
   return false;
+}
+
+async function getMintHex(
+  mintToAddress: `0x${string}`,
+  songContractAddress: `0x${string}`,
+  isOpen: boolean
+): Promise<`0x${string}` | undefined> {
+  try {
+    const data = encodeFunctionData({
+      abi: SuperMinter,
+      functionName: "mintTo",
+      args: [
+        [
+          songContractAddress,
+          isOpen ? 0 : 1,
+          0,
+          mintToAddress,
+          1,
+          "0x0000000000000000000000000000000000000000", // address (allowlisted, empty)
+          0, // uint32 (allowlistedQuantity, default)
+          [], // bytes32[] (allowlistProof, empty)
+          0, // uint96 (signedPrice, default)
+          0, // uint32 (signedQuantity, default)
+          0, // uint32 (signedClaimTicket, default)
+          0, // uint32 (signedDeadline, default)
+          "", // bytes (signature, empty)
+          "0x0000000000000000000000000000000000000000", // address (affiliate, empty)
+          [], // bytes32[] (affiliateProof, empty)
+          0, // uint256 (attributionId, default as string)
+        ],
+      ],
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+  return undefined;
 }
 
 async function isMintingSoldOut(
