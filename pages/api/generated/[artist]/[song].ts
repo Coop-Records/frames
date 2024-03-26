@@ -88,6 +88,7 @@ export default async function handler(
       res.status(200).json({
         chainId: `eip155:${entry.data.chain === "base" ? "8453" : "10"}`,
         method: "eth_sendTransaction",
+        attribution: false,
         params: {
           abi: SuperMinter, // JSON ABI of the function selector and any errors
           to: superMinterContractAddress,
