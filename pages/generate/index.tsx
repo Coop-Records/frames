@@ -18,6 +18,7 @@ const AddSongPage: NextPage = () => {
   const [chain, setChain] = useState("base"); // Default chain selection
   const [edition, setEdition] = useState("limited"); // Default chain selection
   const [purchaseEdition, setPurchaseEdition] = useState("limited"); // Default chain selection
+  const [purchaseEditionPrice, setPurchaseEditionPrice] = useState("0");
 
   const [message, setMessage] = useState("");
 
@@ -51,6 +52,8 @@ const AddSongPage: NextPage = () => {
         throw Error("Provide an image url");
       } else if (isEmpty(contractAddress)) {
         throw Error("Provide a contract address");
+      } else if (isEmpty(purchaseEditionPrice)) {
+        throw Error("Provide valid purchase price");
       }
 
       const actualUrl = getUrlParameterValue(imageUrl);
@@ -82,6 +85,7 @@ const AddSongPage: NextPage = () => {
               chain,
               edition,
               paid_edition: purchaseEdition,
+              paid_edition_price: purchaseEditionPrice,
             },
           ])
           .eq("id", query.id)
@@ -114,6 +118,7 @@ const AddSongPage: NextPage = () => {
             chain,
             edition,
             paid_edition: purchaseEdition,
+            paid_edition_price: purchaseEditionPrice,
           },
         ]);
         setMessage(
@@ -133,6 +138,7 @@ const AddSongPage: NextPage = () => {
       setButton3("");
       setButton4("");
       setContractAddress("");
+      setPurchaseEditionPrice("0");
     } catch (error: any) {
       console.error("Error adding song:", error.message);
       setMessage(error.message);
@@ -274,6 +280,16 @@ const AddSongPage: NextPage = () => {
               <option value="limited">Limited</option>
               <option value="open">Open</option>
             </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            Purchase Edition Price:
+            <input
+              type="text"
+              value={purchaseEditionPrice}
+              onChange={(e) => setPurchaseEditionPrice(e.target.value)}
+            />
           </label>
         </div>
         <button type="submit">Add Song</button>

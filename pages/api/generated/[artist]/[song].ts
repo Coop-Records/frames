@@ -92,7 +92,9 @@ export default async function handler(
           abi: SuperMinter, // JSON ABI of the function selector and any errors
           to: superMinterContractAddress,
           data: mintHex,
-          value: parseEther("0.000777").toString(),
+          value: (
+            parseEther("0.000777") + parseEther(entry.data.paid_edition_price)
+          ).toString(),
         },
       });
     } else if (
@@ -426,7 +428,7 @@ async function getMintHex(
           0, // uint32 (signedClaimTicket, default)
           0, // uint32 (signedDeadline, default)
           "", // bytes (signature, empty)
-          "0x0000000000000000000000000000000000000000", // address (affiliate, empty)
+          "0x512b55b00d744fC2eDB8474f223a7498c3e5a7ce", // address (affiliate, empty)
           [], // bytes32[] (affiliateProof, empty)
           0, // uint256 (attributionId, default as string)
         ],
@@ -466,7 +468,7 @@ async function isMintingSoldOut(
           0, // uint32 (signedClaimTicket, default)
           0, // uint32 (signedDeadline, default)
           "", // bytes (signature, empty)
-          "0x0000000000000000000000000000000000000000", // address (affiliate, empty)
+          "0x512b55b00d744fC2eDB8474f223a7498c3e5a7ce", // address (affiliate, empty)
           [], // bytes32[] (affiliateProof, empty)
           0, // uint256 (attributionId, default as string)
         ],
@@ -528,7 +530,7 @@ async function mintSong(
         0, // uint32 (signedClaimTicket, default)
         0, // uint32 (signedDeadline, default)
         "", // bytes (signature, empty)
-        "0x0000000000000000000000000000000000000000", // address (affiliate, empty)
+        "0x512b55b00d744fC2eDB8474f223a7498c3e5a7ce", // address (affiliate, empty)
         [], // bytes32[] (affiliateProof, empty)
         0, // uint256 (attributionId, default as string)
       ],
