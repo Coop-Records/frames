@@ -83,7 +83,7 @@ export default async function handler(
       const mintHex = await getMintHex(
         address,
         songContractAddress,
-        entry.data.edition === "open"
+        entry.data.paid_edition === "open"
       );
       res.status(200).json({
         chainId: `eip155:${entry.data.chain === "base" ? "8453" : "10"}`,
