@@ -186,7 +186,8 @@ const AddSongPage: NextPage = () => {
             >
               <option value="limited">Limited</option>
               <option value="open">Open</option>
-              <option value="sponsored">Sponsored</option>
+              <option value="sponsoredfree">Sponsored Free</option>
+              <option value="sponsoredlimited">Sponsored Limited</option>{" "}
               <option value="none">None</option>
             </select>
           </label>
@@ -210,7 +211,8 @@ const AddSongPage: NextPage = () => {
             >
               <option value="limited">Limited</option>
               <option value="open">Open</option>
-              <option value="sponsored">Sponsored</option>
+              <option value="sponsoredfree">Sponsored Free</option>
+              <option value="sponsoredlimited">Sponsored Limited</option>
               <option value="none">None</option>
             </select>
           </label>
@@ -234,7 +236,8 @@ const AddSongPage: NextPage = () => {
             >
               <option value="limited">Limited</option>
               <option value="open">Open</option>
-              <option value="sponsored">Sponsored</option>
+              <option value="sponsoredfree">Sponsored Free</option>
+              <option value="sponsoredlimited">Sponsored Limited</option>
               <option value="none">None</option>
             </select>
           </label>

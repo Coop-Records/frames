@@ -128,7 +128,7 @@ export default async function handler(
     buttonType: ButtonType,
     buttonPrice: string
   ) {
-    if (entry.data.button1Type === "sponsored") {
+    if (buttonType === "sponsoredfree" || buttonType === "sponsoredlimited") {
       await sponsoredMint(
         address,
         songContractAddress,
@@ -189,7 +189,7 @@ export default async function handler(
         songContractAddress,
         publicServerClient,
         deployerAccount,
-        entry.data.edition === "open"
+        buttonType === "sponsoredfree"
       )
     ) {
       soldoutScreen(
