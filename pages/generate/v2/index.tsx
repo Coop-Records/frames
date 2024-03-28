@@ -69,7 +69,7 @@ const AddSongPage: NextPage = () => {
 
       if (query) {
         const { data, error } = await supabase
-          .from("frames")
+          .from("framesV2")
           .update([
             {
               artist_name: artistName,
@@ -89,6 +89,9 @@ const AddSongPage: NextPage = () => {
           ])
           .eq("id", query.id)
           .single();
+
+        console.log(data);
+        console.log(error);
         setMessage(
           `Song added successfully!\nFund Wallet Address: ${
             query.wallet_address
@@ -98,7 +101,7 @@ const AddSongPage: NextPage = () => {
           )}/${songName.replaceAll(" ", "")}`
         );
       } else {
-        const { data, error } = await supabase.from("frames").insert([
+        const { data, error } = await supabase.from("framesV2").insert([
           {
             artist_name: artistName,
             song_name: songName,
