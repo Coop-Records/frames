@@ -187,8 +187,8 @@ const AddSongPage: NextPage = () => {
               value={button1Type}
               onChange={(e) => setButton1Type(e.target.value as ButtonType)}
             >
-              <option value="limited">Limited</option>
-              <option value="open">Open</option>
+              <option value="limited">TX Limited</option>
+              <option value="open">TX Forever</option>
               <option value="sponsoredfree">Sponsored Free</option>
               <option value="sponsoredlimited">Sponsored Limited</option>{" "}
               <option value="none">None</option>
@@ -212,8 +212,8 @@ const AddSongPage: NextPage = () => {
               value={button2Type}
               onChange={(e) => setButton2Type(e.target.value as ButtonType)}
             >
-              <option value="limited">Limited</option>
-              <option value="open">Open</option>
+              <option value="limited">TX Limited</option>
+              <option value="open">TX Forever</option>
               <option value="sponsoredfree">Sponsored Free</option>
               <option value="sponsoredlimited">Sponsored Limited</option>
               <option value="none">None</option>
@@ -237,8 +237,8 @@ const AddSongPage: NextPage = () => {
               value={button3Type}
               onChange={(e) => setButton3Type(e.target.value as ButtonType)}
             >
-              <option value="limited">Limited</option>
-              <option value="open">Open</option>
+              <option value="limited">TX Limited</option>
+              <option value="open">TX Forever</option>
               <option value="sponsoredfree">Sponsored Free</option>
               <option value="sponsoredlimited">Sponsored Limited</option>
               <option value="none">None</option>
