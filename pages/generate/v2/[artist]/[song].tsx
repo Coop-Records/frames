@@ -63,7 +63,14 @@ export default function Home({ artist, song, entry }: HomeProps) {
             />
           </>
         );
-      case "sponsored":
+      case "sponsoredfree":
+        return (
+          <meta
+            name={`fc:frame:button:${index}`}
+            content="Claim Free Edition"
+          />
+        );
+      case "sponsoredlimited":
         return (
           <meta
             name={`fc:frame:button:${index}`}
