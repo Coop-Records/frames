@@ -50,8 +50,14 @@ const AddSongPage: NextPage = () => {
         throw Error("Provide valid purchase price");
       } else if (button3Type !== "none" && isEmpty(button3Price)) {
         throw Error("Provide valid purchase price");
+      } else if (
+        button1Type === "none" &&
+        (button2Type !== "none" || button3Type !== "none")
+      ) {
+        throw Error("You can not have higher buttons listed as none");
+      } else if (button2Type === "none" && button3Type !== "none") {
+        throw Error("You can not have higher buttons listed as none");
       }
-
       const actualUrl = getUrlParameterValue(imageUrl);
 
       const { data: query, error: queryError } = await supabase
@@ -223,7 +229,7 @@ const AddSongPage: NextPage = () => {
           <label>
             Button 3 Type:
             <select
-              value={button1Type}
+              value={button3Type}
               onChange={(e) => setButton3Type(e.target.value as ButtonType)}
             >
               <option value="limited">Limited</option>
