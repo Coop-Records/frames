@@ -25,9 +25,9 @@ export default function Home({ artist, song, entry }: HomeProps) {
           name="fc:frame:post_url"
           content={`${endpointProd}/api/generated/${artist}/${song}`}
         />
-        {FCButton(1, entry.button1Type)}
-        {FCButton(2, entry.button2Type)}
-        {FCButton(3, entry.button3Type)}
+        {FCButton(1, entry.data.button1Type)}
+        {FCButton(2, entry.data.button2Type)}
+        {FCButton(3, entry.data.button3Type)}
       </Head>
       <div>This is a Farcaster frame. What are you doing here?</div>
     </>
