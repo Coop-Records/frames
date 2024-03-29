@@ -40,6 +40,7 @@ export default async function handler(
       .eq("artist_smash", artist)
       .eq("song_smash", song)
       .single();
+
     const songContractAddress = entry.data.contract_address;
 
     const deployerAccount = privateKeyToAccount(
@@ -157,7 +158,7 @@ export default async function handler(
     buttonType: ButtonType,
     chain: string,
     price: string,
-    superMinter: string | undefined,
+    superMinter: string | undefined
   ) {
     const mintHex = await getMintHex(
       address,
@@ -199,7 +200,8 @@ export default async function handler(
         res,
         entry.data.artist_name,
         entry.data.song_name,
-        entry.data.image_url
+        entry.data.image_url,
+        entry
       );
     } else if (
       await didUserAlreadyMint(address, songContractAddress, publicServerClient)
@@ -208,7 +210,8 @@ export default async function handler(
         res,
         entry.data.artist_name,
         entry.data.song_name,
-        entry.data.image_url
+        entry.data.image_url,
+        entry
       );
     } else {
       try {
@@ -224,14 +227,16 @@ export default async function handler(
           res,
           entry.data.artist_name,
           entry.data.song_name,
-          entry.data.image_url
+          entry.data.image_url,
+          entry
         );
       } catch (e) {
         soldoutScreen(
           res,
           entry.data.artist_name,
           entry.data.song_name,
-          entry.data.image_url
+          entry.data.image_url,
+          entry
         );
       }
     }
@@ -242,7 +247,8 @@ function successScreen(
   res: NextApiResponse,
   artist: string,
   song: string,
-  imageUrl: string
+  imageUrl: string,
+  entry: any
 ) {
   const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nCongrats! Free edition claimed.`;
   const htmlContent = `
@@ -251,6 +257,29 @@ function successScreen(
                   <meta name="fc:frame" content="vNext" />
                   <meta name="fc:frame:image" content="${image}" />
                   <meta name="og:image" content="op.png" />
+                  <meta
+                  name="fc:frame:post_url"
+                  content=${endpointProd}/api/v2/generated/${
+    entry.data.artist_smash
+  }/${entry.data.song_smash}
+  ${FCButton(
+    1,
+    entry.data.button1Type,
+    entry.data.artist_smash,
+    entry.data.song_smash
+  )}
+  ${FCButton(
+    2,
+    entry.data.button2Type,
+    entry.data.artist_smash,
+    entry.data.song_smash
+  )}
+  ${FCButton(
+    3,
+    entry.data.button3Type,
+    entry.data.artist_smash,
+    entry.data.song_smash
+  )}
                 `;
   res.setHeader("Content-Type", "text/html");
 
@@ -261,7 +290,8 @@ function alreadyMintedScreen(
   res: NextApiResponse,
   artist: string,
   song: string,
-  imageUrl: string
+  imageUrl: string,
+  entry: any
 ) {
   const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nYou have already collected.`;
   const htmlContent = `
@@ -270,6 +300,29 @@ function alreadyMintedScreen(
                   <meta name="fc:frame" content="vNext" />
                   <meta name="fc:frame:image" content="${image}" />
                   <meta name="og:image" content="op.png" />
+                  <meta
+                    name="fc:frame:post_url"
+                    content=${endpointProd}/api/v2/generated/${
+    entry.data.artist_smash
+  }/${entry.data.song_smash}
+  ${FCButton(
+    1,
+    entry.data.button1Type,
+    entry.data.artist_smash,
+    entry.data.song_smash
+  )}
+  ${FCButton(
+    2,
+    entry.data.button2Type,
+    entry.data.artist_smash,
+    entry.data.song_smash
+  )}
+  ${FCButton(
+    3,
+    entry.data.button3Type,
+    entry.data.artist_smash,
+    entry.data.song_smash
+  )}
                 `;
   res.setHeader("Content-Type", "text/html");
 
@@ -280,7 +333,8 @@ function soldoutScreen(
   res: NextApiResponse,
   artist: string,
   song: string,
-  imageUrl: string
+  imageUrl: string,
+  entry: any
 ) {
   const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nSold Out`;
 
@@ -290,16 +344,68 @@ function soldoutScreen(
                   <meta name="fc:frame" content="vNext" />
                   <meta name="fc:frame:image" content="${image}" />
                   <meta name="og:image" content="op.png" />
-                  <meta name="fc:frame:button:1" content="Buy Edition" />
-                  <meta property="fc:frame:button:1:action" content="tx" />
                   <meta
-                    name="fc:frame:button:1:target"
-                    content=${endpointProd}/api/generated/${artist}/${song}
+                    name="fc:frame:post_url"
+                    content=${endpointProd}/api/v2/generated/${
+    entry.data.artist_smash
+  }/${entry.data.song_smash}
                   />
-                `;
+                  ${FCButton(
+                    1,
+                    entry.data.button1Type,
+                    entry.data.artist_smash,
+                    entry.data.song_smash
+                  )}
+                  ${FCButton(
+                    2,
+                    entry.data.button2Type,
+                    entry.data.artist_smash,
+                    entry.data.song_smash
+                  )}
+                  ${FCButton(
+                    3,
+                    entry.data.button3Type,
+                    entry.data.artist_smash,
+                    entry.data.song_smash
+                  )}
+                  `;
   res.setHeader("Content-Type", "text/html");
 
   res.status(200).send(htmlContent);
+}
+
+function FCButton(
+  index: number,
+  buttonType: ButtonType,
+  artist: string,
+  song: string
+): string {
+  switch (buttonType) {
+    case "limited":
+      return `
+          <meta name=fc:frame:button:${index} content="Buy Limited" />
+          <meta property=fc:frame:button:${index}:action content="tx" />
+          <meta
+            name=fc:frame:button:${index}:target
+            content=${endpointProd}/api/v2/generated/${artist}/${song}
+          />
+        `;
+    case "open":
+      return `
+          <meta name=fc:frame:button:${index} content="Buy Unlimited" />
+          <meta property=fc:frame:button:${index}:action content="tx" />
+          <meta
+            name=fc:frame:button:${index}:target
+            content=${endpointProd}/api/v2/generated/${artist}/${song}
+          />
+        `;
+    case "sponsoredfree":
+      return `<meta name=fc:frame:button:${index} content="Retry Free Claim" />`;
+    case "sponsoredlimited":
+      return `<meta name=fc:frame:button:${index} content="Retry Free Claim" />`;
+    case "none":
+      return ``;
+  }
 }
 
 async function getMintHex(
