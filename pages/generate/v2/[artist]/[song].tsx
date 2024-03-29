@@ -38,10 +38,7 @@ export default function Home({ artist, song, entry }: HomeProps) {
       case "limited":
         return (
           <>
-            <meta
-              name={`fc:frame:button:${index}`}
-              content="Buy Limited Edition"
-            />
+            <meta name={`fc:frame:button:${index}`} content="Buy Limited" />
             <meta property={`fc:frame:button:${index}:action`} content="tx" />
             <meta
               name={`fc:frame:button:${index}:target`}
@@ -52,10 +49,7 @@ export default function Home({ artist, song, entry }: HomeProps) {
       case "open":
         return (
           <>
-            <meta
-              name={`fc:frame:button:${index}`}
-              content="Buy Open Edition"
-            />
+            <meta name={`fc:frame:button:${index}`} content="Buy Unlimited" />
             <meta property={`fc:frame:button:${index}:action`} content="tx" />
             <meta
               name={`fc:frame:button:${index}:target`}
@@ -64,19 +58,9 @@ export default function Home({ artist, song, entry }: HomeProps) {
           </>
         );
       case "sponsoredfree":
-        return (
-          <meta
-            name={`fc:frame:button:${index}`}
-            content="Claim Free Edition"
-          />
-        );
+        return <meta name={`fc:frame:button:${index}`} content="Claim Free" />;
       case "sponsoredlimited":
-        return (
-          <meta
-            name={`fc:frame:button:${index}`}
-            content="Claim Free Edition"
-          />
-        );
+        return <meta name={`fc:frame:button:${index}`} content="Claim Free" />;
       case "none":
         return <></>;
     }
