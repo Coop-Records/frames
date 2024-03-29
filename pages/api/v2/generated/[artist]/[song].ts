@@ -336,7 +336,7 @@ function soldoutScreen(
   imageUrl: string,
   entry: any
 ) {
-  const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nSold Out`;
+  const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nFree Claim Sold Out`;
 
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
