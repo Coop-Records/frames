@@ -17,6 +17,9 @@ const AddSongPage: NextPage = () => {
   const [button1Price, setButton1Price] = useState("0");
   const [button2Price, setButton2Price] = useState("0");
   const [button3Price, setButton3Price] = useState("0");
+  const [superminteroverride, setSuperMinterOverride] = useState<
+    string | undefined
+  >(undefined);
 
   const [message, setMessage] = useState("");
 
@@ -262,6 +265,20 @@ const AddSongPage: NextPage = () => {
               type="text"
               value={contractAddress}
               onChange={(e) => setContractAddress(e.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Super Minter Override (Used for old contracts):
+            <input
+              type="text"
+              value={superminteroverride}
+              onChange={(e) =>
+                setSuperMinterOverride(
+                  e.target.value === "" ? undefined : e.target.value
+                )
+              }
             />
           </label>
         </div>

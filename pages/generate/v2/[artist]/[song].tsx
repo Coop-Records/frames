@@ -23,7 +23,7 @@ export default function Home({ artist, song, entry }: HomeProps) {
         <meta name="og:image" content={entry?.data?.image_url} />
         <meta
           name="fc:frame:post_url"
-          content={`${endpointProd}/api/generated/${artist}/${song}`}
+          content={`${endpointProd}/api/generated/v2/${artist}/${song}`}
         />
         {FCButton(1, entry.data.button1Type)}
         {FCButton(2, entry.data.button2Type)}
@@ -45,7 +45,7 @@ export default function Home({ artist, song, entry }: HomeProps) {
             <meta property={`fc:frame:button:${index}:action`} content="tx" />
             <meta
               name={`fc:frame:button:${index}:target`}
-              content={`${endpointProd}/api/generated/${artist}/${song}`}
+              content={`${endpointProd}/api/generated/v2/${artist}/${song}`}
             />
           </>
         );
@@ -59,7 +59,7 @@ export default function Home({ artist, song, entry }: HomeProps) {
             <meta property={`fc:frame:button:${index}:action`} content="tx" />
             <meta
               name={`fc:frame:button:${index}:target`}
-              content={`${endpointProd}/api/generated/${artist}/${song}`}
+              content={`${endpointProd}/api/generated/v2/${artist}/${song}`}
             />
           </>
         );

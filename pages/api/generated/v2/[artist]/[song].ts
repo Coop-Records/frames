@@ -17,6 +17,7 @@ import { isEmpty, isNil } from "lodash";
 import { privateKeyToAccount } from "viem/accounts";
 import { base, optimism } from "viem/chains";
 import { ButtonType, endpointProd } from "@/utils/constants";
+import { ExecFileSyncOptionsWithBufferEncoding } from "child_process";
 
 const superMinterContractAddress = "0x000000000001A36777f9930aAEFf623771b13e70";
 
@@ -121,7 +122,7 @@ export default async function handler(
   async function buttonFormation(
     entry: any,
     address: `0x${string}`,
-    songContractAddress: any,
+    songContractAddress: `0x${string}`,
     publicServerClient: PublicClient,
     deployerAccount: PrivateKeyAccount,
     walletClient: WalletClient,
@@ -142,9 +143,10 @@ export default async function handler(
       await txMint(
         address,
         songContractAddress,
-        entry.data.button1Type,
+        buttonType,
         entry.data.chain,
-        buttonPrice
+        buttonPrice,
+        entry.data.superminteroverride
       );
     }
   }
@@ -154,7 +156,8 @@ export default async function handler(
     songContractAddress: any,
     buttonType: ButtonType,
     chain: string,
-    price: string
+    price: string,
+    superMinter: string | undefined,
   ) {
     const mintHex = await getMintHex(
       address,
@@ -167,7 +170,7 @@ export default async function handler(
       attribution: false,
       params: {
         abi: SuperMinter, // JSON ABI of the function selector and any errors
-        to: superMinterContractAddress,
+        to: superMinter || superMinterContractAddress,
         data: mintHex,
         value: (parseEther("0.000777") + parseEther(price)).toString(),
       },
