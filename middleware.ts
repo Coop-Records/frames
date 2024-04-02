@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export const config = {
-  matcher: ["/generate"],
+  matcher: ["/generate", "/warpcast"],
 };
 
 export function middleware(req: NextRequest) {
