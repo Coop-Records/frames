@@ -264,24 +264,6 @@ function successScreen(
     entry.data.artist_smash
   }/${entry.data.song_smash}
                   />
-                  ${FCButton(
-                    1,
-                    entry.data.button1Type,
-                    entry.data.artist_smash,
-                    entry.data.song_smash
-                  )}
-                  ${FCButton(
-                    2,
-                    entry.data.button2Type,
-                    entry.data.artist_smash,
-                    entry.data.song_smash
-                  )}
-                  ${FCButton(
-                    3,
-                    entry.data.button3Type,
-                    entry.data.artist_smash,
-                    entry.data.song_smash
-                  )}
                   `;
   res.setHeader("Content-Type", "text/html");
 
