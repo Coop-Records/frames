@@ -193,7 +193,7 @@ export default async function handler(
         songContractAddress,
         publicServerClient,
         deployerAccount,
-        buttonType === "sponsoredfree"
+        buttonType === "sponsoredfree" || buttonType === "open"
       )
     ) {
       soldoutScreen(
@@ -221,7 +221,7 @@ export default async function handler(
           publicServerClient,
           deployerAccount,
           walletClient,
-          buttonType === "open"
+          buttonType === "open" || buttonType === "sponsoredfree"
         );
         successScreen(
           res,
@@ -251,6 +251,7 @@ function successScreen(
   entry: any
 ) {
   const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nCongrats! Free edition claimed.`;
+
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
                   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -258,29 +259,30 @@ function successScreen(
                   <meta name="fc:frame:image" content="${image}" />
                   <meta name="og:image" content="op.png" />
                   <meta
-                  name="fc:frame:post_url"
-                  content=${endpointProd}/api/v2/generated/${
+                    name="fc:frame:post_url"
+                    content=${endpointProd}/api/v2/generated/${
     entry.data.artist_smash
   }/${entry.data.song_smash}
-  ${FCButton(
-    1,
-    entry.data.button1Type,
-    entry.data.artist_smash,
-    entry.data.song_smash
-  )}
-  ${FCButton(
-    2,
-    entry.data.button2Type,
-    entry.data.artist_smash,
-    entry.data.song_smash
-  )}
-  ${FCButton(
-    3,
-    entry.data.button3Type,
-    entry.data.artist_smash,
-    entry.data.song_smash
-  )}
-                `;
+                  />
+                  ${FCButton(
+                    1,
+                    entry.data.button1Type,
+                    entry.data.artist_smash,
+                    entry.data.song_smash
+                  )}
+                  ${FCButton(
+                    2,
+                    entry.data.button2Type,
+                    entry.data.artist_smash,
+                    entry.data.song_smash
+                  )}
+                  ${FCButton(
+                    3,
+                    entry.data.button3Type,
+                    entry.data.artist_smash,
+                    entry.data.song_smash
+                  )}
+                  `;
   res.setHeader("Content-Type", "text/html");
 
   res.status(200).send(htmlContent);
@@ -294,6 +296,7 @@ function alreadyMintedScreen(
   entry: any
 ) {
   const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nYou have already collected.`;
+
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
                   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -305,25 +308,26 @@ function alreadyMintedScreen(
                     content=${endpointProd}/api/v2/generated/${
     entry.data.artist_smash
   }/${entry.data.song_smash}
-  ${FCButton(
-    1,
-    entry.data.button1Type,
-    entry.data.artist_smash,
-    entry.data.song_smash
-  )}
-  ${FCButton(
-    2,
-    entry.data.button2Type,
-    entry.data.artist_smash,
-    entry.data.song_smash
-  )}
-  ${FCButton(
-    3,
-    entry.data.button3Type,
-    entry.data.artist_smash,
-    entry.data.song_smash
-  )}
-                `;
+                  />
+                  ${FCButton(
+                    1,
+                    entry.data.button1Type,
+                    entry.data.artist_smash,
+                    entry.data.song_smash
+                  )}
+                  ${FCButton(
+                    2,
+                    entry.data.button2Type,
+                    entry.data.artist_smash,
+                    entry.data.song_smash
+                  )}
+                  ${FCButton(
+                    3,
+                    entry.data.button3Type,
+                    entry.data.artist_smash,
+                    entry.data.song_smash
+                  )}
+                  `;
   res.setHeader("Content-Type", "text/html");
 
   res.status(200).send(htmlContent);
