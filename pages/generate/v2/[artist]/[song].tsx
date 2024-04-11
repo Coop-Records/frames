@@ -64,9 +64,9 @@ export default function Home({ artist, song, entry }: HomeProps) {
       case "link":
         return (
           <>
-            <meta name="fc:frame:button:${index}" content="Listen" />
+            <meta name={`fc:frame:button:${index}`} content="Listen" />
             <meta
-              name="fc:frame:button:${index}:action"
+              name={`fc:frame:button:${index}:action`}
               content="post_redirect"
             />
           </>
