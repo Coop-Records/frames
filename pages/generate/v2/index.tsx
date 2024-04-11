@@ -17,9 +17,9 @@ const AddSongPage: NextPage = () => {
   const [button1Price, setButton1Price] = useState("0");
   const [button2Price, setButton2Price] = useState("0");
   const [button3Price, setButton3Price] = useState("0");
-  const [button1Link, setButton1Link] = useState("0");
-  const [button2Link, setButton2Link] = useState("0");
-  const [button3Link, setButton3Link] = useState("0");
+  const [button1Link, setButton1Link] = useState("");
+  const [button2Link, setButton2Link] = useState("");
+  const [button3Link, setButton3Link] = useState("");
   const [superminteroverride, setSuperMinterOverride] = useState<
     string | undefined
   >(undefined);
