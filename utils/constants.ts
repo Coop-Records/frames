@@ -8,4 +8,5 @@ export type ButtonType =
   | "open"
   | "sponsoredfree"
   | "sponsoredlimited"
+  | "link"
   | "none";
