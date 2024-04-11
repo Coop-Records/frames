@@ -406,6 +406,7 @@ function FCButton(
     case "none":
       return ``;
   }
+  return "";
 }
 
 async function getMintHex(
