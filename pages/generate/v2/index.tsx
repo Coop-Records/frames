@@ -91,6 +91,9 @@ const AddSongPage: NextPage = () => {
               button2Type,
               button3Price,
               button3Type,
+              button1Link,
+              button2Link,
+              button3Link,
             },
           ])
           .eq("id", query.id)
