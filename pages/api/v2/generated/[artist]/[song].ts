@@ -91,7 +91,7 @@ export default async function handler(
         walletClient,
         entry.data.button1Type,
         entry.data.button1Price,
-        entry.data.link1
+        entry.data.button1link
       );
     } else if (req.body.untrustedData.buttonIndex === 2) {
       await buttonFormation(
@@ -103,7 +103,7 @@ export default async function handler(
         walletClient,
         entry.data.button2Type,
         entry.data.button2Price,
-        entry.data.link2
+        entry.data.button2link
       );
     } else if (req.body.untrustedData.buttonIndex === 3) {
       await buttonFormation(
@@ -115,7 +115,7 @@ export default async function handler(
         walletClient,
         entry.data.button3Type,
         entry.data.button3Price,
-        entry.data.link3
+        entry.data.button3link
       );
     }
   } catch (error) {
