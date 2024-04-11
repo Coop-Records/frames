@@ -17,6 +17,9 @@ const AddSongPage: NextPage = () => {
   const [button1Price, setButton1Price] = useState("0");
   const [button2Price, setButton2Price] = useState("0");
   const [button3Price, setButton3Price] = useState("0");
+  const [button1Link, setButton1Link] = useState("0");
+  const [button2Link, setButton2Link] = useState("0");
+  const [button3Link, setButton3Link] = useState("0");
   const [superminteroverride, setSuperMinterOverride] = useState<
     string | undefined
   >(undefined);
@@ -194,20 +197,35 @@ const AddSongPage: NextPage = () => {
               <option value="open">TX Forever</option>
               <option value="sponsoredfree">Sponsored Free</option>
               <option value="sponsoredlimited">Sponsored Limited</option>{" "}
+              <option value="link">Link</option>
               <option value="none">None</option>
             </select>
           </label>
         </div>
-        <div>
-          <label>
-            Button 1 Price:
-            <input
-              type="text"
-              value={button1Price}
-              onChange={(e) => setButton1Price(e.target.value)}
-            />
-          </label>
-        </div>
+        {button1Type === "link" ? (
+          <div>
+            <label>
+              Button 1 Link:
+              <input
+                type="text"
+                value={button1Link}
+                onChange={(e) => setButton1Link(e.target.value)}
+              />
+            </label>
+          </div>
+        ) : (
+          <div>
+            <label>
+              Button 1 Price:
+              <input
+                type="text"
+                value={button1Price}
+                onChange={(e) => setButton1Price(e.target.value)}
+              />
+            </label>
+          </div>
+        )}
+
         <div>
           <label>
             Button 2 Type:
@@ -218,21 +236,35 @@ const AddSongPage: NextPage = () => {
               <option value="limited">TX Limited</option>
               <option value="open">TX Forever</option>
               <option value="sponsoredfree">Sponsored Free</option>
-              <option value="sponsoredlimited">Sponsored Limited</option>
+              <option value="sponsoredlimited">Sponsored Limited</option>{" "}
+              <option value="link">Link</option>
               <option value="none">None</option>
             </select>
           </label>
         </div>
-        <div>
-          <label>
-            Button 2 Price:
-            <input
-              type="text"
-              value={button2Price}
-              onChange={(e) => setButton2Price(e.target.value)}
-            />
-          </label>
-        </div>
+        {button2Type === "link" ? (
+          <div>
+            <label>
+              Button 2 Link:
+              <input
+                type="text"
+                value={button1Link}
+                onChange={(e) => setButton1Link(e.target.value)}
+              />
+            </label>
+          </div>
+        ) : (
+          <div>
+            <label>
+              Button 2 Price:
+              <input
+                type="text"
+                value={button2Price}
+                onChange={(e) => setButton2Price(e.target.value)}
+              />
+            </label>
+          </div>
+        )}
         <div>
           <label>
             Button 3 Type:
@@ -244,20 +276,34 @@ const AddSongPage: NextPage = () => {
               <option value="open">TX Forever</option>
               <option value="sponsoredfree">Sponsored Free</option>
               <option value="sponsoredlimited">Sponsored Limited</option>
+              <option value="link">Link</option>
               <option value="none">None</option>
             </select>
           </label>
         </div>
-        <div>
-          <label>
-            Button 3 Price:
-            <input
-              type="text"
-              value={button3Price}
-              onChange={(e) => setButton3Price(e.target.value)}
-            />
-          </label>
-        </div>
+        {button3Type === "link" ? (
+          <div>
+            <label>
+              Button 3 Link:
+              <input
+                type="text"
+                value={button3Link}
+                onChange={(e) => setButton3Link(e.target.value)}
+              />
+            </label>
+          </div>
+        ) : (
+          <div>
+            <label>
+              Button 3 Price:
+              <input
+                type="text"
+                value={button3Price}
+                onChange={(e) => setButton3Price(e.target.value)}
+              />
+            </label>
+          </div>
+        )}
         <div>
           <label>
             Contract Address:

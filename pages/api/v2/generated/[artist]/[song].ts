@@ -90,7 +90,8 @@ export default async function handler(
         deployerAccount,
         walletClient,
         entry.data.button1Type,
-        entry.data.button1Price
+        entry.data.button1Price,
+        entry.data.link1
       );
     } else if (req.body.untrustedData.buttonIndex === 2) {
       await buttonFormation(
@@ -101,7 +102,8 @@ export default async function handler(
         deployerAccount,
         walletClient,
         entry.data.button2Type,
-        entry.data.button2Price
+        entry.data.button2Price,
+        entry.data.link2
       );
     } else if (req.body.untrustedData.buttonIndex === 3) {
       await buttonFormation(
@@ -112,7 +114,8 @@ export default async function handler(
         deployerAccount,
         walletClient,
         entry.data.button3Type,
-        entry.data.button3Price
+        entry.data.button3Price,
+        entry.data.link3
       );
     }
   } catch (error) {
@@ -128,7 +131,8 @@ export default async function handler(
     deployerAccount: PrivateKeyAccount,
     walletClient: WalletClient,
     buttonType: ButtonType,
-    buttonPrice: string
+    buttonPrice: string,
+    link: string
   ) {
     if (buttonType === "sponsoredfree" || buttonType === "sponsoredlimited") {
       await sponsoredMint(
@@ -140,6 +144,11 @@ export default async function handler(
         walletClient,
         buttonType
       );
+    } else if (buttonType === "link") {
+      res.redirect(302, link);
+      res.statusCode = 302;
+      res.setHeader("location", link);
+      res.end();
     } else {
       await txMint(
         address,
@@ -260,9 +269,7 @@ function successScreen(
                   <meta name="og:image" content="op.png" />
                   <meta
                     name="fc:frame:post_url"
-                    content=${endpointProd}/api/v2/generated/${
-    entry.data.artist_smash
-  }/${entry.data.song_smash}
+                    content=${endpointProd}/api/v2/generated/${entry.data.artist_smash}/${entry.data.song_smash}
                   />
                   `;
   res.setHeader("Content-Type", "text/html");
@@ -389,9 +396,15 @@ function FCButton(
       return `<meta name=fc:frame:button:${index} content="Retry Free Claim" />`;
     case "sponsoredlimited":
       return `<meta name=fc:frame:button:${index} content="Retry Free Claim" />`;
+    case "link":
+      return `
+      <meta name="fc:frame:button:${index}" content="Listen" />
+      <meta name="fc:frame:button:${index}:action" content="post_redirect" />
+      `;
     case "none":
       return ``;
   }
+  return "";
 }
 
 async function getMintHex(
