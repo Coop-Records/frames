@@ -248,7 +248,7 @@ const AddSongPage: NextPage = () => {
               Button 2 Link:
               <input
                 type="text"
-                value={button1Link}
+                value={button2Link}
                 onChange={(e) => setButton1Link(e.target.value)}
               />
             </label>
