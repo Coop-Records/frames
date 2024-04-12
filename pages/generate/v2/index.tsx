@@ -152,6 +152,9 @@ const AddSongPage: NextPage = () => {
       setButton2Type("none");
       setButton3Type("none");
       setContractAddress("");
+      setButton1Link("");
+      setButton2Link("");
+      setButton3Link("");
     } catch (error: any) {
       console.error("Error adding song:", error.message);
       setMessage(error.message);
@@ -231,7 +234,6 @@ const AddSongPage: NextPage = () => {
             </label>
           </div>
         )}
-
         <div>
           <label>
             Button 2 Type:

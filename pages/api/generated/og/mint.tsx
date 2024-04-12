@@ -18,6 +18,8 @@ export default async function handler(request: NextRequest) {
 
   const copy = searchParams.get("copy") as string;
 
+  const hume = searchParams.get("hume") as string;
+
   console.log(copy);
 
   return new ImageResponse(
@@ -71,7 +73,7 @@ export default async function handler(request: NextRequest) {
 
             // filter: "blur(50px)" /* Adjust the blur intensity as needed */,
           }}
-          src={"https://frames.cooprecords.xyz/crm.png"}
+          src={hume ? "" : "https://frames.cooprecords.xyz/crm.png"}
         />
         <div
           style={{
