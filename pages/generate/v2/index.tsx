@@ -127,6 +127,9 @@ const AddSongPage: NextPage = () => {
             button2Type,
             button3Price,
             button3Type,
+            button1link: button1Link,
+            button2link: button2Link,
+            button3link: button3Link,
           },
         ]);
         setMessage(
