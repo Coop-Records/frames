@@ -36,6 +36,17 @@ const AddSongPage: NextPage = () => {
     }
   }
 
+  function cleanSmash(name: string): string {
+    return name
+      .replaceAll(" ", "")
+      .replaceAll(",", "")
+      .replace("(", "")
+      .replace(")", "")
+      .replace("/", "")
+      .replace("&", "")
+      .replace("'", "");
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -80,8 +91,8 @@ const AddSongPage: NextPage = () => {
             {
               artist_name: artistName,
               song_name: songName,
-              song_smash: songName.replaceAll(" ", ""),
-              artist_smash: artistName.replaceAll(" ", ""),
+              song_smash: cleanSmash(songName),
+              artist_smash: cleanSmash(artistName),
               image_url: actualUrl,
               contract_address: contractAddress,
               chain,
@@ -104,18 +115,17 @@ const AddSongPage: NextPage = () => {
         setMessage(
           `Song added successfully!\nFund Wallet Address: ${
             query.wallet_address
-          }. The frame address is: https://frames.cooprecords.xyz/generate/v2/${artistName.replaceAll(
-            " ",
-            ""
-          )}/${songName.replaceAll(" ", "")}`
+          }. The frame address is: https://frames.cooprecords.xyz/generate/v2/${cleanSmash(
+            artistName
+          )}/${cleanSmash(songName)}`
         );
       } else {
         const { data, error } = await supabase.from("framesV2").insert([
           {
             artist_name: artistName,
             song_name: songName,
-            song_smash: songName.replaceAll(" ", ""),
-            artist_smash: artistName.replaceAll(" ", ""),
+            song_smash: cleanSmash(songName),
+            artist_smash: cleanSmash(artistName),
             image_url: actualUrl,
             contract_address: contractAddress,
             wallet_address: account.address,
@@ -135,10 +145,9 @@ const AddSongPage: NextPage = () => {
         setMessage(
           `Song added successfully!\nFund Wallet Address: ${
             account.address
-          }. The frame address is: https://frames.cooprecords.xyz/generate/v2/${artistName.replaceAll(
-            " ",
-            ""
-          )}/${songName.replaceAll(" ", "")}`
+          }. The frame address is: https://frames.cooprecords.xyz/generate/v2/${cleanSmash(
+            artistName
+          )}/${cleanSmash(songName)}`
         );
       }
 
