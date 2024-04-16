@@ -142,7 +142,8 @@ export default async function handler(
         deployerAccount,
         entry,
         walletClient,
-        buttonType
+        buttonType,
+        buttonPrice
       );
     } else if (buttonType === "link") {
       res.redirect(302, link);
@@ -194,7 +195,8 @@ export default async function handler(
     deployerAccount: PrivateKeyAccount,
     entry: any,
     walletClient: WalletClient,
-    buttonType: ButtonType
+    buttonType: ButtonType,
+    buttonPrice: string
   ) {
     if (
       await isMintingSoldOut(
@@ -202,7 +204,8 @@ export default async function handler(
         songContractAddress,
         publicServerClient,
         deployerAccount,
-        buttonType === "sponsoredfree" || buttonType === "open"
+        buttonType === "sponsoredfree" || buttonType === "open",
+        buttonPrice
       )
     ) {
       soldoutScreen(
@@ -230,7 +233,8 @@ export default async function handler(
           publicServerClient,
           deployerAccount,
           walletClient,
-          buttonType === "open" || buttonType === "sponsoredfree"
+          buttonType === "open" || buttonType === "sponsoredfree",
+          buttonPrice
         );
         successScreen(
           res,
@@ -449,7 +453,8 @@ async function isMintingSoldOut(
   songContractAddress: `0x${string}`,
   publicServerClient: PublicClient,
   DeployerAccount: PrivateKeyAccount,
-  isOpen: boolean
+  isOpen: boolean,
+  price: string
 ): Promise<boolean> {
   try {
     const { request, result } = await publicServerClient.simulateContract({
@@ -477,7 +482,7 @@ async function isMintingSoldOut(
         ],
       ],
       account: DeployerAccount,
-      value: parseEther("0.000777"),
+      value: parseEther(price) + parseEther("0.000777"),
     });
   } catch (e) {
     console.log(e);
@@ -498,6 +503,7 @@ async function didUserAlreadyMint(
     functionName: "tokensOfOwner",
     args: [mintToAddress],
   })) as number[];
+  console.log("OWNED", owned);
   for (let i = 0; i < owned.length; i++) {
     if (owned[i] > cutoff) return true;
   }
@@ -510,9 +516,12 @@ async function mintSong(
   publicServerClient: PublicClient,
   DeployerAccount: PrivateKeyAccount,
   walletClient: WalletClient,
-  isOpen: boolean
+  isOpen: boolean,
+  price: string
 ) {
   const abi = SuperMinter;
+
+  console.log("price", price);
 
   const { request, result } = await publicServerClient.simulateContract({
     address: superMinterContractAddress,
@@ -539,7 +548,7 @@ async function mintSong(
       ],
     ],
     account: DeployerAccount,
-    value: parseEther("0.000777"),
+    value: parseEther(price) + parseEther("0.000777"),
   });
 
   const hash = await walletClient.writeContract(request);
