@@ -73,7 +73,11 @@ export default async function handler(request: NextRequest) {
 
             // filter: "blur(50px)" /* Adjust the blur intensity as needed */,
           }}
-          src={hume ? "" : "https://frames.cooprecords.xyz/crm.png"}
+          src={
+            hume
+              ? "https://frames.cooprecords.xyz/hume.png"
+              : "https://frames.cooprecords.xyz/crm.png"
+          }
         />
         <div
           style={{

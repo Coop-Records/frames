@@ -259,7 +259,7 @@ function successScreen(
   imageUrl: string,
   entry: any
 ) {
-  const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nCongrats! Free edition claimed.`;
+  const image = `${endpointProd}/api/generated/og/mint?hume=${entry.data.humeLogo}&image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nCongrats! Free edition claimed.`;
 
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
@@ -284,7 +284,7 @@ function alreadyMintedScreen(
   imageUrl: string,
   entry: any
 ) {
-  const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nYou have already collected.`;
+  const image = `${endpointProd}/api/generated/og/mint?hume=${entry.data.humeLogo}&image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nYou have already collected.`;
 
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />
@@ -329,7 +329,7 @@ function soldoutScreen(
   imageUrl: string,
   entry: any
 ) {
-  const image = `${endpointProd}/api/generated/og/mint?image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nFree Claim Sold Out`;
+  const image = `${endpointProd}/api/generated/og/mint?hume=${entry.data.humeLogo}&image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nFree Claim Sold Out`;
 
   const htmlContent = `
                   <meta name="description" content="Coop Recs Frame" />

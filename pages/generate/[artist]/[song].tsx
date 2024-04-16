@@ -10,7 +10,7 @@ interface HomeProps {
 }
 
 export default function Home({ artist, song, entry }: HomeProps) {
-  const image = `${endpointProd}/api/generated/og/mint?image=${entry.data.image_url}&copy=${entry.data.artist_name}\\n \\n${entry.data.song_name}\\n`;
+  const image = `${endpointProd}/api/generated/og/mint?hume=${entry.data.humeLogo}&image=${entry.data.image_url}&copy=${entry.data.artist_name}\\n \\n${entry.data.song_name}\\n`;
   console.log(`${image}`);
   return (
     <>

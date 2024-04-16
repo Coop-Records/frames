@@ -23,6 +23,7 @@ const AddSongPage: NextPage = () => {
   const [superminteroverride, setSuperMinterOverride] = useState<
     string | undefined
   >(undefined);
+  const [isUsingHume, setIsUsingHume] = useState(false);
 
   const [message, setMessage] = useState("");
 
@@ -105,6 +106,7 @@ const AddSongPage: NextPage = () => {
               button1link: button1Link,
               button2link: button2Link,
               button3link: button3Link,
+              humeLogo: isUsingHume,
             },
           ])
           .eq("id", query.id)
@@ -140,6 +142,7 @@ const AddSongPage: NextPage = () => {
             button1link: button1Link,
             button2link: button2Link,
             button3link: button3Link,
+            humeLogo: isUsingHume,
           },
         ]);
         setMessage(
@@ -342,6 +345,16 @@ const AddSongPage: NextPage = () => {
                   e.target.value === "" ? undefined : e.target.value
                 )
               }
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Should we override with the hume logo:
+            <input
+              type="checkbox"
+              checked={isUsingHume}
+              onChange={(e) => setIsUsingHume(e.target.checked)}
             />
           </label>
         </div>
