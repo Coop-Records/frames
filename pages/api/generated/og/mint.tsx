@@ -61,7 +61,7 @@ export default async function handler(request: NextRequest) {
         />
         <img
           width="150px"
-          height="120px"
+          height={hume ? "150px" : "120px"}
           style={{
             position: "absolute",
             top: 0,
