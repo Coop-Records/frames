@@ -35,12 +35,10 @@ export default async function handler(
 
     const address = data.action.interactor.verifications[0] as `0x${string}`;
 
-    if (!address) {
-      throw new Error();
-    }
-
     const userFid = data.action.interactor.fid as number;
-    if (req.body.untrustedData.buttonIndex === 1) {
+    if (!address) {
+      notVerified(res);
+    } else if (req.body.untrustedData.buttonIndex === 1) {
       const mintHex = encodeFunctionData({
         abi: FarconcertTicket,
         functionName: "mintTo",
@@ -96,6 +94,28 @@ export default async function handler(
                   <meta name="viewport" content="width=device-width, initial-scale=1" />
                   <meta name="fc:frame" content="vNext" />
                   <meta name="fc:frame:image" content="${`${endpointProd}/farconcert/noticket.png`}" />
+                  <meta name="og:image" content="op.png" />
+                  <meta
+                    name="fc:frame:post_url"
+                    content="${endpointProd}/api/farconcert"
+                  />
+                  <meta name="fc:frame:button:1" content="Purchase Ticket" />
+                  <meta property="fc:frame:button:1:action" content="tx" />
+                  <meta
+                    name="fc:frame:button:1:target"
+                    content="${endpointProd}/api/farconcert"
+                  />
+                  `;
+    res.setHeader("Content-Type", "text/html");
+
+    res.status(200).send(htmlContent);
+  }
+  function notVerified(res: NextApiResponse) {
+    const htmlContent = `
+                  <meta name="description" content="Coop Recs Frame" />
+                  <meta name="viewport" content="width=device-width, initial-scale=1" />
+                  <meta name="fc:frame" content="vNext" />
+                  <meta name="fc:frame:image" content="${`${endpointProd}/farconcert/verify.png`}" />
                   <meta name="og:image" content="op.png" />
                   <meta
                     name="fc:frame:post_url"
