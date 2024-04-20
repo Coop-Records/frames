@@ -66,7 +66,7 @@ export default async function handler(
     }
   } catch (error) {
     console.error("Request failed:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    notVerified(res);
   }
 
   function successScreen(res: NextApiResponse) {
