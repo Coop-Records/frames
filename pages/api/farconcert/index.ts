@@ -56,7 +56,7 @@ export default async function handler(
         },
       });
     } else if (req.body.untrustedData.buttonIndex === 2) {
-      if (await goingToFarconcert(address)) {
+      if (await goingToFarconcert(data.action.interactor.verifications)) {
         successScreen(res);
       } else {
         youDontHaveTicket(res);
@@ -134,12 +134,15 @@ export default async function handler(
   }
 }
 
-async function goingToFarconcert(address: string) {
-  const numOwned = (await BASEpublicServerClient.readContract({
-    address: ticketContractAddress,
-    abi: FarconcertTicket,
-    functionName: "balanceOf",
-    args: [address],
-  })) as number;
-  return numOwned >= 1;
+async function goingToFarconcert(address: string[]) {
+  for (var i = 0; i < address.length; i++) {
+    const numOwned = (await BASEpublicServerClient.readContract({
+      address: ticketContractAddress,
+      abi: FarconcertTicket,
+      functionName: "balanceOf",
+      args: [address],
+    })) as number;
+    if (numOwned >= 1) return true;
+  }
+  return false;
 }
