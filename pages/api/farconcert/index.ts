@@ -140,7 +140,7 @@ async function goingToFarconcert(address: string[]) {
       address: ticketContractAddress,
       abi: FarconcertTicket,
       functionName: "balanceOf",
-      args: [address],
+      args: [address[i]],
     })) as number;
     if (numOwned >= 1) return true;
   }
