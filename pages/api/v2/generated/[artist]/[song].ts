@@ -117,6 +117,14 @@ export default async function handler(
         entry.data.button3Price,
         entry.data.button3link
       );
+    } else {
+      successMintScreen(
+        res,
+        entry.data.artist_name,
+        entry.data.song_name,
+        entry.data.image_url,
+        entry
+      );
     }
   } catch (error) {
     console.error("Request failed:", error);
@@ -254,6 +262,31 @@ export default async function handler(
       }
     }
   }
+}
+
+function successMintScreen(
+  res: NextApiResponse,
+  artist: string,
+  song: string,
+  imageUrl: string,
+  entry: any
+) {
+  const image = `${endpointProd}/api/generated/og/mint?hume=${entry.data.humeLogo}&image=${imageUrl}&copy=${artist}\\n \\n${song}\\n \\nCongrats! You have minted successfully.`;
+
+  const htmlContent = `
+                  <meta name="description" content="Coop Recs Frame" />
+                  <meta name="viewport" content="width=device-width, initial-scale=1" />
+                  <meta name="fc:frame" content="vNext" />
+                  <meta name="fc:frame:image" content="${image}" />
+                  <meta name="og:image" content="op.png" />
+                  <meta
+                    name="fc:frame:post_url"
+                    content=${endpointProd}/api/v2/generated/${entry.data.artist_smash}/${entry.data.song_smash}
+                  />
+                  `;
+  res.setHeader("Content-Type", "text/html");
+
+  res.status(200).send(htmlContent);
 }
 
 function successScreen(
