@@ -96,7 +96,9 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
 
   const entry = await supabase
     .from("framesV2")
-    .select("*")
+    .select(
+      "image_url,artist_name,song_name,contract_address,contract_chain,wallet_address,artist_smash,song_smash,chain,button1Price,button2Price,button3Price,button1Type,button2Type,button3Type,superminteroverride,button1link,button2link,button3link,humeLogo"
+    )
     .eq("artist_smash", artist)
     .eq("song_smash", song)
     .single();
