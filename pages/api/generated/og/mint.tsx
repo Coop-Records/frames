@@ -61,7 +61,7 @@ export default async function handler(request: NextRequest) {
         />
         <img
           width="150px"
-          height={hume ? "150px" : "120px"}
+          height={"120px"}
           style={{
             position: "absolute",
             top: 0,
@@ -73,11 +73,7 @@ export default async function handler(request: NextRequest) {
 
             // filter: "blur(50px)" /* Adjust the blur intensity as needed */,
           }}
-          src={
-            hume
-              ? "https://frames.cooprecords.xyz/hume.png"
-              : "https://frames.cooprecords.xyz/crm.png"
-          }
+          src={"https://frames.cooprecords.xyz/crm.png"}
         />
         <div
           style={{
