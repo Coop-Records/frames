@@ -2,7 +2,8 @@ import { GetServerSideProps } from "next";
 import { supabase } from "@/lib/supabaseClient";
 import Head from "next/head";
 import { ButtonType, endpointProd } from "@/utils/constants";
-import { isNil } from "lodash";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 interface HomeProps {
   artist: string;
@@ -11,6 +12,14 @@ interface HomeProps {
 }
 
 export default function Home({ artist, song, entry }: HomeProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push(
+      "https://www.sound.xyz/playlist/8af38c99-c1ff-4f22-be0a-f188dde3d576"
+    );
+  }, [router]);
+
   const image = `${endpointProd}/api/generated/og/mint?hume=${entry.data.humeLogo}&image=${entry.data.image_url}&copy=${entry.data.artist_name}\\n \\n${entry.data.song_name}\\n`;
   return (
     <>
