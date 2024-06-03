@@ -1,40 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Coop Records Frame Generator
 
-## Getting Started
+Coop Records developed a tool to easily create recurring Frames for songs on Sound.xyz.
 
-First, run the development server:
+The Frame Generator lets an admin create a Frame that points to a specific song on Sound.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+We use the Frame Generator daily at Coop Records - allowing users on Farcaster to easily collect songs on Sound without leaving the feed.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Under the hood - the Frame Generator creates a unique output by pasting in a contract address along with a field to identify the ability to collect limited and unlimited editions of each track.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+In total - the Frame Generator has been used to create over 100 Frames for Coop Records songs - estimated to have driven close to 5,000 mints.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Evolution of the Generator
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+At inception - we were mainly using Frames to sponsor free mints [sponsor free mints](https://example.com).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![Online Image](https://hackmd.io/_uploads/B16jG0cER.png)
 
-## Learn More
+Users were able to "claim" a fixed number of free editions with mint costs sponsored by Coop Records.
 
-To learn more about Next.js, take a look at the following resources:
+Over time - we migrated to support both limited and unlimited edition minting when transaction support went live.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Online Image](https://hackmd.io/_uploads/SJHx705VA.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+From there - we allowed teams like Hume to use our Frames for their artists Angelbaby and Deathpixie.
 
-## Deploy on Vercel
+![Online Image](https://hackmd.io/_uploads/B1OGQRqVR.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Today - the Frame Generator is an essential part of the Coop Records work flow and is posted multiple times a day on the [@cooprecs account on Warpcast](https://warpcast.com/cooprecs).
